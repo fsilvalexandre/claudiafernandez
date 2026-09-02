@@ -1,0 +1,89 @@
+{
+  "en": {
+    "nav": {
+      "home": "Home",
+      "bio": "Biography",
+      "schedule": "Schedule",
+      "media": "Media",
+      "projects": "Projects",
+      "contact": "Contact"
+    },
+    "menuToggle": "Menu",
+    "languageLabel": "Language",
+    "sections": {
+      "bio": "Biography",
+      "schedule": "Schedule",
+      "media": "Media",
+      "projects": "Projects",
+      "contact": "Contact",
+      "venues": "Selected venues"
+    },
+    "scheduleEmpty": "New concert dates will be announced soon.",
+    "mediaEmpty": "Recordings will be added soon.",
+    "projectsEmpty": "New projects coming soon.",
+    "readFullBio": "Read full biography",
+    "viewAllProjects": "View all projects",
+    "contactIntro": "For bookings and enquiries:",
+    "contactEmailFallback": "Contact form coming soon.",
+    "footerRights": "All rights reserved.",
+    "backToTop": "Back to top"
+  },
+  "es": {
+    "nav": {
+      "home": "Inicio",
+      "bio": "Biografía",
+      "schedule": "Agenda",
+      "media": "Media",
+      "projects": "Proyectos",
+      "contact": "Contacto"
+    },
+    "menuToggle": "Menú",
+    "languageLabel": "Idioma",
+    "sections": {
+      "bio": "Biografía",
+      "schedule": "Agenda",
+      "media": "Media",
+      "projects": "Proyectos",
+      "contact": "Contacto",
+      "venues": "Salas destacadas"
+    },
+    "scheduleEmpty": "Próximas fechas de concierto se anunciarán pronto.",
+    "mediaEmpty": "Las grabaciones se añadirán próximamente.",
+    "projectsEmpty": "Nuevos proyectos, próximamente.",
+    "readFullBio": "Leer biografía completa",
+    "viewAllProjects": "Ver todos los proyectos",
+    "contactIntro": "Para contrataciones y consultas:",
+    "contactEmailFallback": "Formulario de contacto próximamente.",
+    "footerRights": "Todos los derechos reservados.",
+    "backToTop": "Volver arriba"
+  },
+  "de": {
+    "nav": {
+      "home": "Start",
+      "bio": "Biografie",
+      "schedule": "Termine",
+      "media": "Media",
+      "projects": "Projekte",
+      "contact": "Kontakt"
+    },
+    "menuToggle": "Menü",
+    "languageLabel": "Sprache",
+    "sections": {
+      "bio": "Biografie",
+      "schedule": "Termine",
+      "media": "Media",
+      "projects": "Projekte",
+      "contact": "Kontakt",
+      "venues": "Ausgewählte Spielstätten"
+    },
+    "scheduleEmpty": "Neue Konzerttermine werden in Kürze bekannt gegeben.",
+    "mediaEmpty": "Aufnahmen folgen in Kürze.",
+    "projectsEmpty": "Neue Projekte folgen in Kürze.",
+    "readFullBio": "Vollständige Biografie lesen",
+    "viewAllProjects": "Alle Projekte ansehen",
+    "contactIntro": "Für Buchungen und Anfragen:",
+    "contactEmailFallback": "Kontaktformular folgt in Kürze.",
+    "footerRights": "Alle Rechte vorbehalten.",
+    "backToTop": "Nach oben"
+  }
+}

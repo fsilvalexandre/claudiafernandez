@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "name": "Claudia Fernández Parrondo",
+    "role": {
+      "en": "Pianist",
+      "es": "Pianista",
+      "de": "Pianistin"
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "en": "Pianist",
+      "es": "Pianista",
+      "de": "Pianist"
+    },
+    "image": {
+      "src700": "assets/images/claudia-hero-700.jpg",
+      "src1200": "assets/images/claudia-hero-1200.jpg",
+      "src2000": "assets/images/claudia-hero-2000.jpg",
+      "alt": {
+        "en": "Portrait of Claudia Fernández Parrondo",
+        "es": "Retrato de Claudia Fernández Parrondo",
+        "de": "Porträt von Claudia Fernández Parrondo"
+      }
+    }
+  },
+  "bioTeaser": {
+    "en": "Claudia Fernández Parrondo is a Spanish pianist whose musical career includes concerts in venues such as the Zaragoza Auditorium, the Palau de la Música in Valencia, the Juan March Foundation in Madrid, the Rathauslaube in Schaffhausen (Switzerland), and Schloss Wildon (Austria).",
+    "es": "Claudia Fernández Parrondo es una pianista española cuya carrera musical incluye conciertos en salas como el Auditorio de Zaragoza, el Palau de la Música de Valencia, la Fundación Juan March de Madrid, la Rathauslaube de Schaffhausen (Suiza) y el Schloss Wildon (Austria).",
+    "de": "Claudia Fernández Parrondo ist eine spanische Pianistin, deren musikalische Laufbahn Konzerte an Orten wie dem Auditorio de Zaragoza, dem Palau de la Música in Valencia, der Fundación Juan March in Madrid, der Rathauslaube Schaffhausen (Schweiz) und Schloss Wildon (Österreich) umfasst."
+  },
+  "bio": {
+    "en": "Claudia Fernández Parrondo is a Spanish pianist whose musical career includes concerts in venues such as the Zaragoza Auditorium, the Palau de la Música in Valencia, the Juan March Foundation in Madrid, the Rathauslaube in Schaffhausen (Switzerland), and Schloss Wildon (Austria).\n\nTo date, she has won several piano competitions and has been invited to participate in the Aurora Music Festival 2018 (Stockholm), the International Festival “Piano Meeting 2019” (Ourense), the Arte Classica Festival (Austria), and the West Wicklow Chamber Music Festival (Ireland), among others. Her musical training also includes participation in several national and international courses, where she has been able to receive masterclasses from renowned pianists such as David Kuyken, Nina Tichmann, Kennedy Moretti, Christian Pohl, Aleksandar Madzar, and Gabriela Montero, among others.\n\nBorn in 1997 in Manzanares (Spain), Claudia began studying music at the age of two in her hometown. In Albacete, she completed her professional music studies with honors in piano and also received the Extraordinary Award for Professional Artistic Studies from Castilla-La Mancha. She later studied piano at the Conservatorio Superior de Música de Aragón with Professor Miguel Ángel Ortega Chavaldas, graduating in June 2019 with honors in piano and receiving the award for best academic record in her class. After finishing in Zaragoza, she was admitted to the Hochschule für Musik in Basel (Switzerland), where she completed a Master's degree in performance and a Master's degree in pedagogy with Tobias Schabenberger and Zoltán Fejérvári. Finally, at the same institution, she took a specialization course in chamber music with professors Anton Kernjak and Anna Gebert.\n\nIn the field of chamber music, Claudia has had the opportunity to play in prestigious concert halls, while perfecting her chamber music training with musicians such as the Quiroga Quartet, Marta Gulyas, Sol Gabetta, Anthony Marwood, and Leonidas Kavakos.\n\nShe currently combines her pedagogical activity with the collaboration with numerous musicians, her main interests being chamber music and Lied.",
+    "es": "Claudia Fernández Parrondo es una pianista española cuya trayectoria musical incluye conciertos en salas como el Auditorio de Zaragoza, el Palau de la Música de Valencia, la Fundación Juan March de Madrid, el “Rathauslaube” en Schaffhausen (Suiza) o el “Schloss Wildon” (Austria).\n\nHasta el momento, ha sido galardonada en varios concursos de piano y ha sido invitada para participar en el Aurora Music Festival 2018 (Estocolmo), en el Festival Internacional “Piano Meeting 2019” (Ourense), en el Festival Arte Classica (Austria), y en el “West Wicklow Chamber Music Festival” (Irlanda), entre otros. Su formación musical incluye, también, la participación en varios cursos nacionales e internacionales, donde ha podido recibir clases magistrales de pianistas de gran renombre como David Kuyken, Nina Tichman, Kennedy Moretti, Christian Pohl, Aleksandar Madzar o Gabriela Montero, entre otros.\n\nNacida en 1997 en Manzanares (Ciudad-Real), Claudia se inició en la música a los 2 años de edad en su localidad natal. En Albacete completó sus estudios de Enseñanzas Profesionales de Música con Matrícula de Honor en piano y recibiendo, además, el Premio Extraordinario de Enseñanzas Artísticas Profesionales de Castilla de la Mancha. Más adelante, realizó sus estudios de piano en el Conservatorio Superior de Música de Aragón con el profesor Miguel Ángel Ortega Chavaldas, finalizando en junio de 2019 con Matrícula de Honor en piano y con el premio al mejor expediente de su promoción. Al finalizar en Zaragoza, fue admitida en la reconocida Hochschule für Musik de Basilea (Suiza), donde realizó un Máster en interpretación y un Máster en Pedagogía con Tobias Schabenberger y Zoltán Fejérvári. Por último, en esta misma institución, realizó un curso de especialización en música de cámara con los profesores Anton Kernjak y Anna Gebert.\n\nEn el ámbito de la música de cámara, Claudia ha tenido la oportunidad de tocar en prestigiosas salas de conciertos, a la vez que ha perfeccionado su formación camerística con músicos como el Cuarteto Quiroga, Marta Gulyas, Sol Gabetta, Anthony Marwood o Leonidas Kavakos.\n\nEn la actualidad, combina su actividad pedagógica con la colaboración con numerosos músicos, siendo su centro de interés la música de cámara y el Lied.",
+    "de": "Claudia Fernández Parrondo ist eine spanische Pianistin, deren musikalische Laufbahn Konzerte an Orten wie dem Auditorio de Zaragoza, dem Palau de la Música in Valencia, der Fundación Juan March in Madrid, der Rathauslaube Schaffhausen (Schweiz) und Schloss Wildon (Österreich) umfasst.\n\nBislang hat sie mehrere Klavierwettbewerbe gewonnen und wurde unter anderem zum Aurora Music Festival 2018 (Stockholm), zum internationalen Festival „Piano Meeting 2019“ (Ourense), zum Arte Classica Festival (Österreich) und zum West Wicklow Chamber Music Festival (Irland) eingeladen. Ihre musikalische Ausbildung umfasst zudem die Teilnahme an zahlreichen nationalen und internationalen Kursen, in denen sie Meisterkurse bei renommierten Pianisten wie David Kuyken, Nina Tichmann, Kennedy Moretti, Christian Pohl, Aleksandar Madžar und Gabriela Montero besuchen konnte.\n\nClaudia wurde 1997 in Manzanares (Spanien) geboren und begann bereits im Alter von zwei Jahren in ihrer Heimatstadt mit dem Musikstudium. In Albacete schloss sie ihr professionelles Musikstudium im Fach Klavier mit Auszeichnung ab und erhielt zudem den Sonderpreis für professionelle künstlerische Studien von Castilla-La Mancha. Anschließend studierte sie Klavier am Conservatorio Superior de Música de Aragón bei Professor Miguel Ángel Ortega Chavaldas und schloss dieses Studium im Juni 2019 mit Auszeichnung sowie dem Preis für den besten Notendurchschnitt ihres Jahrgangs ab. Nach ihrem Abschluss in Zaragoza wurde sie an der Hochschule für Musik Basel (Schweiz) aufgenommen, wo sie einen Master in Performance sowie einen Master in Pädagogik bei Tobias Schabenberger und Zoltán Fejérvári absolvierte. Abschließend belegte sie an derselben Hochschule einen Spezialisierungskurs in Kammermusik bei den Professoren Anton Kernjak und Anna Gebert.\n\nIm Bereich der Kammermusik hatte Claudia die Gelegenheit, in renommierten Konzertsälen zu spielen und dabei ihre kammermusikalische Ausbildung gemeinsam mit Musikern wie dem Quiroga Quartett, Marta Gulyas, Sol Gabetta, Anthony Marwood und Leonidas Kavakos zu vertiefen.\n\nDerzeit verbindet sie ihre pädagogische Tätigkeit mit der Zusammenarbeit mit zahlreichen Musikern; ihre Hauptinteressen liegen dabei in der Kammermusik und im Lied."
+  },
+  "bioTranslationStatus": {
+    "en": "original",
+    "es": "draft-needs-review",
+    "de": "draft-needs-review"
+  },
+  "venuesHighlight": [
+    { "en": "Zaragoza Auditorium", "es": "Auditorio de Zaragoza", "de": "Auditorio de Zaragoza" },
+    { "en": "Palau de la Música, Valencia", "es": "Palau de la Música, Valencia", "de": "Palau de la Música, Valencia" },
+    { "en": "Juan March Foundation, Madrid", "es": "Fundación Juan March, Madrid", "de": "Fundación Juan March, Madrid" },
+    { "en": "Rathauslaube, Schaffhausen (CH)", "es": "Rathauslaube, Schaffhausen (Suiza)", "de": "Rathauslaube, Schaffhausen (Schweiz)" },
+    { "en": "Schloss Wildon (Austria)", "es": "Schloss Wildon (Austria)", "de": "Schloss Wildon (Österreich)" }
+  ],
+  "schedule": [],
+  "media": [],
+"projects": [
+  {
+    "title": {
+      "en": "Ebenum Duo",
+      "es": "Ebenum Duo",
+      "de": "Ebenum Duo"
+    },
+      "cardDescription": {
+    "en": "Violin and piano, with Arabela de Miguel Robledo.",
+    "es": "Violín y piano, con Arabela de Miguel Robledo.",
+    "de": "Violine und Klavier, mit Arabela de Miguel Robledo."
+  },
+    "description": {
+      "en": "Ebenum Duo is an instrumental duo formed by violinist Arabela de Miguel Robledo and pianist Claudia Fernández Parrondo. Driven by a desire to explore new repertoire and move away from traditional concert formats, Ebenum Duo develops interdisciplinary projects and concert programmes that focus on lesser-known repertoire. Their programmes seek to establish a dialogue between the different works, creating connections that allow them to be contextualised and brought closer to audiences from a historical, thematic, or conceptual perspective.",
+      "es": "Ebenum Duo es un dúo instrumental formado por la violinista Arabela de Miguel Robledo y la pianista Claudia Fernández Parrondo. Fruto del deseo de explorar nuevos repertorios y de alejarse de los formatos tradicionales de concierto, Ebenum Duo trata de desarrollar proyectos interdisciplinares y programas de concierto que ponen el foco en repertorio menos conocido. Sus propuestas buscan establecer un diálogo entre las distintas obras, creando conexiones que permitan contextualizarlas y acercarlas al público desde una perspectiva histórica, temática o conceptual.",
+      "de": "Ebenum Duo ist ein Instrumentalduo, bestehend aus der Geigerin Arabela de Miguel Robledo und der Pianistin Claudia Fernández Parrondo. Aus dem Wunsch heraus, neue Repertoires zu erkunden und sich von traditionellen Konzertformaten zu lösen, entwickelt Ebenum Duo interdisziplinäre Projekte und Konzertprogramme, die den Fokus auf weniger bekanntes Repertoire legen. Ihre Programme zielen darauf ab, einen Dialog zwischen den verschiedenen Werken herzustellen und Verbindungen zu schaffen, die es ermöglichen, diese aus einer historischen, thematischen oder konzeptionellen Perspektive zu kontextualisieren und dem Publikum näherzubringen."
+    },
+    "link": {
+      "url": "www.ebenumduo.com",
+      "label": {
+        "en": "Visit website",
+        "es": "Visita la página web",
+        "de": "Website besuchen"
+      }
+    },
+    "image": "assets/images/projects/ebenum-duo.jpg"
+  },
+  {
+    "title": {
+      "en": "Duo Albor",
+      "es": "Duo Albor",
+      "de": "Duo Albor"
+    },
+  "cardDescription": {
+    "en": "Soprano and piano, with Siddhi Lagruta.",
+    "es": "Soprano y piano, con Siddhi Lagruta.",
+    "de": "Soprano und Klavier, mit Siddhi Lagruta."
+  },
+  
+    "description": {
+      "en": "Formed by Siddhii Lagrutta (soprano) and Claudia Fernández Parrondo (piano), Duo Albor explores the Lied-Duo repertoire, spanning a broad stylistic arc from Haydn and Mozart to the nationalisms of the 20th century. Their programmes, conceived around a thematic focus, invite audiences to immerse themselves in the musical aesthetics of each proposal through a careful and engaging selection of works.\n\nTheir most recent project, The Human Voice, presents an adaptation of the celebrated work by Francis Poulenc, in which their interdisciplinary approach creates an experience of great intensity on stage. Through this format, Duo Albor presents the work from a renewed perspective and invites reflection on society and new technologies.",
+      "es": "Formado por Siddhii Lagrutta (soprano) y Claudia Fernández Parrondo (piano), Duo Albor explora el repertorio de Lied-Duo, recorriendo un amplio arco estilístico que abarca desde Haydn y Mozart hasta los nacionalismos del siglo XX. Sus programas, concebidos en torno a un eje temático, invitan al público a sumergirse en la estética musical de cada propuesta mediante una cuidadosa e interesante selección de obras.\n\nSu proyecto más reciente, The Human Voice, propone una adaptación de la célebre obra de Francis Poulenc, en la que su enfoque interdisciplinar ofrece una experiencia escénica de gran intensidad. A través de este formato, Duo Albor presenta la obra desde una perspectiva renovada y plantea una reflexión sobre la sociedad y las nuevas tecnologías.",
+      "de": "Gegründet von Siddhii Lagrutta (Sopran) und Claudia Fernández Parrondo (Klavier), erkundet das Duo Albor das Repertoire des Lied-Duos und spannt dabei einen weiten stilistischen Bogen von Haydn und Mozart bis hin zu den Nationalismen des 20. Jahrhunderts. Ihre Programme, die um ein thematisches Leitmotiv konzipiert sind, laden das Publikum dazu ein, durch eine sorgfältige und interessante Werkauswahl in die musikalische Ästhetik jedes Programms einzutauchen.\n\nIhr jüngstes Projekt, The Human Voice, präsentiert eine Adaption des berühmten Werks von Francis Poulenc, bei der ihr interdisziplinärer Ansatz ein besonders intensives szenisches Erlebnis schafft. In diesem Format präsentiert Duo Albor das Werk aus einer neuen Perspektive und regt zur Reflexion über die Gesellschaft und die neuen Technologien an."
+    },
+    "link": {
+      "url": "https://example.com/project-two",
+      "label": {
+        "en": "Learn more",
+        "es": "Saber más",
+        "de": "Mehr erfahren"
+      }
+    },
+    "image": "assets/images/projects/duo-albor.jpg"
+  }
+],
+  "contact": {
+    "email": "",
+    "location": {
+      "en": "",
+      "es": "",
+      "de": ""
+    },
+    "social": []
+  }
+}
