@@ -14,9 +14,9 @@
       "de": "Pianist"
     },
     "image": {
-      "src700": "assets/images/claudia-hero-700.jpg",
-      "src1200": "assets/images/claudia-hero-1200.jpg",
-      "src2000": "assets/images/claudia-hero-2000.jpg",
+      "src700": "assets/claudia-hero-700.jpg",
+      "src1200": "assets/claudia-hero-1200.jpg",
+      "src2000": "assets/claudia-hero-2000.jpg",
       "alt": {
         "en": "Portrait of Claudia Fernández Parrondo",
         "es": "Retrato de Claudia Fernández Parrondo",
@@ -73,7 +73,7 @@
         "de": "Website besuchen"
       }
     },
-    "image": "assets/images/projects/ebenum-duo.jpg"
+    "image": "assets/projects/ebenum-duo.jpg"
   },
   {
     "title": {
@@ -100,7 +100,7 @@
         "de": "Mehr erfahren"
       }
     },
-    "image": "assets/images/projects/duo-albor.jpg"
+    "image": "assets/projects/duo-albor.jpg"
   }
 ],
   "contact": {
