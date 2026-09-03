@@ -77,6 +77,9 @@ function renderAll() {
   renderProjects("projectsGrid", "projectsEmpty");           // full projects page
   renderProjects("projectsPreviewGrid", "projectsPreviewEmpty", 3); // homepage preview
   renderContact();
+  renderFloatingConcert();
+  setupScheduleTabs();
+
 }
 
 function renderHero() {
@@ -121,47 +124,235 @@ function renderVenues() {
 }
 
 function renderSchedule() {
-  const list = document.getElementById("scheduleList");
-  const emptyState = document.getElementById("scheduleEmpty");
-  if (!list || !emptyState) return;
-  const items = I18N.content?.schedule || [];
-  list.innerHTML = "";
+  const upcomingList = document.getElementById("scheduleList");
+  const upcomingEmpty = document.getElementById("scheduleEmpty");
+  const pastList = document.getElementById("schedulePastList");
+  const pastEmpty = document.getElementById("schedulePastEmpty");
+  if (!upcomingList || !upcomingEmpty) return;
 
-  if (items.length === 0) {
-    emptyState.hidden = false;
+  const items = I18N.content?.schedule || [];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const upcoming = items
+    .filter((item) => item.date && new Date(item.date) >= today)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const past = items
+    .filter((item) => item.date && new Date(item.date) < today)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  upcomingList.innerHTML = "";
+  appendGroupedByYear(upcomingList, upcoming);
+  upcomingEmpty.hidden = upcoming.length > 0;
+  upcomingEmpty.dataset.hasContent = String(upcoming.length === 0);
+
+  if (pastList && pastEmpty) {
+    pastList.innerHTML = "";
+    appendGroupedByYear(pastList, past);
+    pastEmpty.hidden = past.length > 0;
+    pastEmpty.dataset.hasContent = String(past.length === 0);
+  }
+}
+
+function appendGroupedByYear(container, items) {
+  let currentYear = null;
+  items.forEach((item) => {
+    const year = new Date(item.date).getFullYear();
+    if (year !== currentYear) {
+      currentYear = year;
+      const yearHeader = document.createElement("li");
+      yearHeader.className = "schedule-year";
+      yearHeader.textContent = year;
+      container.appendChild(yearHeader);
+    }
+    container.appendChild(buildScheduleItem(item));
+  });
+}
+
+function buildScheduleItem(item) {
+  const li = document.createElement("li");
+  li.className = "schedule-item";
+
+  const { day, month } = formatDateParts(item.date, I18N.getLang());
+
+  const dateBox = document.createElement("div");
+  dateBox.className = "schedule-item__datebox";
+  const dayEl = document.createElement("span");
+  dayEl.className = "schedule-item__day";
+  dayEl.textContent = day;
+  const monthEl = document.createElement("span");
+  monthEl.className = "schedule-item__month";
+  monthEl.textContent = month;
+  dateBox.appendChild(dayEl);
+  dateBox.appendChild(monthEl);
+
+  const info = document.createElement("div");
+  info.className = "schedule-item__info";
+
+  const title = document.createElement("p");
+  title.className = "schedule-item__title";
+  title.textContent = pickLang(item.title);
+  info.appendChild(title);
+
+  const venueLine = [pickLang(item.venue), pickLang(item.city)].filter(Boolean).join(" — ");
+  if (venueLine) {
+    const venue = document.createElement("p");
+    venue.className = "schedule-item__venue";
+    venue.textContent = venueLine;
+    info.appendChild(venue);
+  }
+
+  if (item.program) {
+    const program = document.createElement("p");
+    program.className = "schedule-item__program";
+    program.textContent = pickLang(item.program);
+    info.appendChild(program);
+  }
+
+  li.appendChild(dateBox);
+  li.appendChild(info);
+  return li;
+}
+
+function setupScheduleTabs() {
+  const tabUpcoming = document.getElementById("tabUpcoming");
+  const tabPast = document.getElementById("tabPast");
+  const listUpcoming = document.getElementById("scheduleList");
+  const emptyUpcoming = document.getElementById("scheduleEmpty");
+  const listPast = document.getElementById("schedulePastList");
+  const emptyPast = document.getElementById("schedulePastEmpty");
+
+  if (
+    !tabUpcoming ||
+    !tabPast ||
+    !listUpcoming ||
+    !listPast ||
+    !emptyUpcoming ||
+    !emptyPast
+  ) {
     return;
   }
-  emptyState.hidden = true;
 
-  items.forEach((item) => {
-    const li = document.createElement("li");
-    li.className = "schedule-item";
+  function showUpcoming() {
+    tabUpcoming.classList.add("is-active");
+    tabPast.classList.remove("is-active");
 
-    const date = document.createElement("span");
-    date.className = "schedule-item__date";
-    date.textContent = item.dateDisplay || item.date || "";
+    listUpcoming.hidden = false;
+    listPast.hidden = true;
 
-    const title = document.createElement("span");
-    title.className = "schedule-item__title";
-    title.textContent = pickLang(item.title);
+    emptyUpcoming.hidden = listUpcoming.children.length > 0;
+    emptyPast.hidden = true;
+  }
 
-    const venue = document.createElement("span");
-    venue.className = "schedule-item__venue";
-    venue.textContent = [pickLang(item.venue), pickLang(item.city)].filter(Boolean).join(" — ");
+  function showPast() {
+    tabPast.classList.add("is-active");
+    tabUpcoming.classList.remove("is-active");
 
-    li.appendChild(date);
-    li.appendChild(title);
-    li.appendChild(venue);
+    listUpcoming.hidden = true;
+    listPast.hidden = false;
 
-    if (item.program) {
-      const program = document.createElement("span");
-      program.className = "schedule-item__program";
-      program.textContent = pickLang(item.program);
-      li.appendChild(program);
-    }
+    emptyUpcoming.hidden = true;
+    emptyPast.hidden = listPast.children.length > 0;
+  }
 
-    list.appendChild(li);
+  tabUpcoming.onclick = showUpcoming;
+  tabPast.onclick = showPast;
+
+  // Estado inicial
+  showUpcoming();
+}
+
+function renderFloatingConcert() {
+const navigation = performance.getEntriesByType("navigation")[0];
+
+if (
+  navigation?.type !== "reload" &&
+  sessionStorage.getItem("floatingConcertDismissed") === "1"
+) {
+  return;
+}
+
+if (navigation?.type === "reload") {
+  sessionStorage.removeItem("floatingConcertDismissed");
+}
+
+  const items = I18N.content?.schedule || [];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const upcoming = items
+    .filter((item) => item.date && new Date(item.date) >= today)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  if (upcoming.length === 0) return;
+  const next = upcoming[0];
+
+  const existing = document.getElementById("floatingConcert");
+  if (existing) existing.remove();
+
+  const { day, month } = formatDateParts(next.date, I18N.getLang());
+
+  const card = document.createElement("div");
+  card.className = "floating-concert";
+  card.id = "floatingConcert";
+
+  const badge = document.createElement("div");
+  badge.className = "floating-concert__badge";
+
+  const badgeMonth = document.createElement("span");
+  badgeMonth.className = "floating-concert__badge-month";
+  badgeMonth.textContent = month;
+
+  const badgeDay = document.createElement("span");
+  badgeDay.className = "floating-concert__badge-day";
+  badgeDay.textContent = day;
+
+  badge.appendChild(badgeMonth);
+  badge.appendChild(badgeDay);
+
+  const info = document.createElement("div");
+  info.className = "floating-concert__info";
+
+  const label = document.createElement("p");
+  label.className = "floating-concert__label";
+  label.textContent = I18N.t("nextConcertLabel");
+
+  const title = document.createElement("p");
+  title.className = "floating-concert__venue";
+  title.textContent = pickLang(next.title);
+
+  const link = document.createElement("a");
+  link.className = "floating-concert__link";
+  link.href = "schedule.html";
+  link.textContent = I18N.t("viewSchedule");
+
+  info.appendChild(label);
+  info.appendChild(title);
+  info.appendChild(link);
+
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "floating-concert__close";
+  closeBtn.setAttribute("aria-label", "Close");
+  closeBtn.textContent = "×";
+
+  closeBtn.addEventListener("click", () => {
+    card.remove();
+    sessionStorage.setItem("floatingConcertDismissed", "1");
   });
+
+  card.appendChild(badge);
+  card.appendChild(info);
+  card.appendChild(closeBtn);
+
+  document.body.appendChild(card);
+}
+function formatDateParts(dateStr, lang) {
+  const iso = dateStr.includes("T") ? dateStr : dateStr + "T00:00:00";
+  const date = new Date(iso);
+  const day = date.getDate();
+  const month = date.toLocaleDateString(lang, { month: "short" }).toUpperCase().replace(".", "");
+  return { day, month };
 }
 
 function renderMedia() {

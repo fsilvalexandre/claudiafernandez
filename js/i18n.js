@@ -25,14 +25,17 @@ const I18N = (() => {
     return DEFAULT_LANG;
   }
 
-  async function loadData() {
-    const [tRes, cRes] = await Promise.all([
-      fetch("data/translations.json"),
-      fetch("data/content.json"),
-    ]);
-    translations = await tRes.json();
-    content = await cRes.json();
-  }
+async function loadData() {
+  const [tRes, cRes, sRes] = await Promise.all([
+    fetch("data/translations.json"),
+    fetch("data/content.json"),
+    fetch("data/schedule.json"),
+  ]);
+  translations = await tRes.json();
+  content = await cRes.json();
+  const scheduleData = await sRes.json();
+  content.schedule = scheduleData.schedule;
+}
 
   /** Resolve a dotted path like "sections.bio" against an object */
   function resolvePath(obj, path) {

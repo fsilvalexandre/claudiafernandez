@@ -68,6 +68,7 @@
 
     <nav class="primary-nav" id="primaryNav" aria-label="Primary navigation">
       <ul class="primary-nav__list">
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
         <li><a href="bio.html" data-i18n="nav.bio">Biography</a></li>
         <li><a href="schedule.html" data-i18n="nav.schedule" aria-current="page">Schedule</a></li>
         <li><a href="media.html" data-i18n="nav.media">Media</a></li>
@@ -158,12 +159,22 @@
     </div>
   </section>
 
-  <section class="section section--schedule" id="schedule">
-    <div class="section__inner">
-      <ul class="schedule-list" id="scheduleList"></ul>
-      <p class="empty-state" id="scheduleEmpty" data-i18n="scheduleEmpty" hidden>New concert dates will be announced soon.</p>
+<section class="section section--schedule" id="schedule">
+  <div class="section__inner">
+
+    <div class="schedule-tabs" role="tablist">
+      <button type="button" class="schedule-tab is-active" id="tabUpcoming" data-target="upcoming" data-i18n="scheduleTabUpcoming">Upcoming</button>
+      <button type="button" class="schedule-tab" id="tabPast" data-target="past" data-i18n="scheduleTabPast">Past</button>
     </div>
-  </section>
+
+    <ul class="schedule-list" id="scheduleList"></ul>
+    <p class="empty-state" id="scheduleEmpty" data-i18n="scheduleEmpty" hidden>New concert dates will be announced soon.</p>
+
+    <ul class="schedule-list schedule-list--past" id="schedulePastList" hidden></ul>
+    <p class="empty-state" id="schedulePastEmpty" data-i18n="schedulePastEmpty" hidden>No past concerts yet.</p>
+
+  </div>
+</section>
 
 </main>
 
