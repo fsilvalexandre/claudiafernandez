@@ -20,12 +20,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   // from the content/i18n loading.
   setupNav();
   setupLangSwitch();
+  setupScrollProgress();
 
   try {
     await I18N.init();
 
     renderAll();
     I18N.setLang(I18N.getLang());
+
+    setupScrollReveal();
 
     document.addEventListener("langchange", renderAll);
 
@@ -582,4 +585,50 @@ function slugify(text) {
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+}
+
+function setupScrollProgress() {
+  const bar = document.getElementById("scrollProgress");
+  if (!bar) return;
+
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = percent + "%";
+  }
+
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  updateProgress();
+}
+
+function setupScrollReveal() {
+  const selectors = [
+    ".bio-teaser__text",
+    ".section--bio-teaser .text-link",
+    ".project-card",
+    ".project-block",
+    ".media-card",
+    ".schedule-item",
+    ".bio__text > p",
+    ".venues",
+    ".contact__details",
+  ];
+  const targets = document.querySelectorAll(selectors.join(","));
+  if (!targets.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+  targets.forEach((el, i) => {
+    el.classList.add("reveal");
+    el.style.transitionDelay = `${Math.min(i % 6, 5) * 0.06}s`;
+    observer.observe(el);
+  });
 }

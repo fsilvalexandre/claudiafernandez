@@ -106,7 +106,7 @@ content="Claudia Fernández Parrondo, Spanish pianist. Chamber music and Lied, b
   <!-- Prefetch -->
 
   <link rel="prefetch" href="assets/bio-hero.jpg" as="image">
-  <link rel="prefetch" href="assets/projects-hero.jpg" as="image">
+  <link rel="prefetch" href="assets/projects/projects-hero.jpg" as="image">
   <link rel="prefetch" href="assets/schedule-hero.jpg" as="image">
 </head>
 
@@ -145,14 +145,15 @@ content="Claudia Fernández Parrondo, Spanish pianist. Chamber music and Lied, b
     <ul class="primary-nav__list">
 
       <!-- HOME -->
-      <li>
-        <a
-          href="index.html"
-          data-i18n="nav.home"
-        >
-          Home
-        </a>
-      </li>
+<li>
+  <a
+    href="index.html"
+    data-i18n="nav.home"
+    aria-current="page"
+  >
+    Home
+  </a>
+</li>
 
       <!-- BIOGRAPHY -->
       <li>
@@ -469,6 +470,8 @@ content="Claudia Fernández Parrondo, Spanish pianist. Chamber music and Lied, b
   </button>
 
 </div>
+
+<div class="scroll-progress" id="scrollProgress"></div>
 
   </header>
 

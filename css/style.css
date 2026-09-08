@@ -3,7 +3,13 @@
    Design tokens: "Golden Hour"
    ========================================================================== */
 
+
+/* ==========================================================================
+   DESIGN TOKENS
+   ========================================================================== */
+
 :root {
+  /* Colors */
   --color-ink: #1c1712;
   --color-ink-soft: #2a231c;
   --color-parchment: #f4ede1;
@@ -14,6 +20,7 @@
   --color-line: #d8cbb6;
   --color-white: #fffdf9;
 
+  /* Typography */
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
@@ -23,12 +30,20 @@
   --step-body: clamp(1rem, 0.4vw + 0.9rem, 1.15rem);
   --step-eyebrow: clamp(0.72rem, 0.3vw + 0.65rem, 0.85rem);
 
+  /* Layout */
   --content-max: 68rem;
   --content-pad: 1.25rem;
   --space-section: clamp(4rem, 10vw, 8rem);
+  --header-height: 5rem;
 
+  /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+
+/* ==========================================================================
+   RESPONSIVE TOKENS
+   ========================================================================== */
 
 @media (min-width: 700px) {
   :root {
@@ -38,7 +53,7 @@
 
 
 /* ==========================================================================
-   RESET
+   RESET / BASE
    ========================================================================== */
 
 *,
@@ -51,23 +66,9 @@ html {
   scroll-behavior: smooth;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 body {
   margin: 0;
+  padding-top: var(--header-height);
 
   background: var(--color-parchment);
   color: var(--color-ink);
@@ -80,8 +81,8 @@ body {
 }
 
 img {
-  max-width: 100%;
   display: block;
+  max-width: 100%;
 }
 
 a {
@@ -120,22 +121,20 @@ p {
   clip: rect(0, 0, 0, 0);
 
   white-space: nowrap;
-
   border: 0;
 }
 
 .skip-link {
   position: absolute;
-
   top: -3rem;
   left: 1rem;
 
-  background: var(--color-ink);
-  color: var(--color-parchment);
+  z-index: 1000;
 
   padding: 0.6rem 1rem;
 
-  z-index: 1000;
+  background: var(--color-ink);
+  color: var(--color-parchment);
 
   border-radius: 0 0 4px 4px;
 
@@ -153,17 +152,39 @@ p {
 
 
 /* ==========================================================================
+   MOTION — SCROLL REVEAL
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+
+  transition:
+    opacity 1.4s var(--ease),
+    transform 1.4s var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ==========================================================================
    HEADER
    ========================================================================== */
 
 .site-header {
-  position: sticky;
-
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
 
   z-index: 100;
 
-  background: rgba(244, 237, 225, 0.9);
+  width: 100%;
+
+  background: rgba(244, 237, 225, 0.6);
 
   backdrop-filter: blur(8px);
 
@@ -171,56 +192,72 @@ p {
 }
 
 .site-header__inner {
+  display: flex;
+  align-items: center;
+
   width: 100%;
 
   margin: 0 auto;
-
   padding: 0.9rem var(--content-pad);
-
-  display: flex;
-
-  align-items: center;
 
   gap: 0;
 }
 
 
-/* ==========================================================================
-   HEADER — NAME
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Header — Scroll progress
+   -------------------------------------------------------------------------- */
+
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+
+  z-index: 101;
+
+  width: 0%;
+  height: 2px;
+
+  background: linear-gradient(
+    to right,
+    var(--color-amber-deep),
+    var(--color-amber)
+  );
+
+  transition: width 0.1s linear;
+}
+
+
+/* --------------------------------------------------------------------------
+   Header — Name
+   -------------------------------------------------------------------------- */
 
 .site-header__name {
-  font-family: var(--font-display);
-
-  font-weight: 500;
-
-  font-size: 1.05rem;
-
-  text-decoration: none;
-
-  letter-spacing: 0.01em;
-
   display: flex;
-
   flex-direction: column;
 
+  flex-shrink: 0;
+
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
   line-height: 1.15;
 
-  flex-shrink: 0;
+  letter-spacing: 0.01em;
+  text-decoration: none;
 }
 
 .site-header__surname {
-  font-size: 0.78em;
-
   color: var(--color-coffee);
 
+  font-size: 0.78em;
   font-style: italic;
 }
 
 
-/* ==========================================================================
-   HEADER — NAVIGATION
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Header — Navigation
+   -------------------------------------------------------------------------- */
 
 .primary-nav {
   display: none;
@@ -228,24 +265,22 @@ p {
 
 .primary-nav__list {
   display: flex;
-
   align-items: center;
 
   gap: 1.8rem;
 }
 
 .primary-nav__list a {
-  text-decoration: none;
-
-  font-family: var(--font-body);
-
-  font-size: 0.95rem;
-
-  font-weight: 500;
+  position: relative;
 
   color: var(--color-ink);
 
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+
   white-space: nowrap;
+  text-decoration: none;
 
   transition: color 0.2s var(--ease);
 }
@@ -255,23 +290,51 @@ p {
   color: var(--color-amber-deep);
 }
 
+/* Active page */
+.primary-nav__list a[aria-current="page"] {
+  color: var(--color-amber-deep);
+}
 
-/* ==========================================================================
-   HEADER — SOCIAL ICONS
-   ========================================================================== */
+/* Navigation underline */
+.primary-nav__list a::after {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  bottom: -0.45rem;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--color-amber);
+
+  transform: translateX(-50%);
+
+  transition: width 0.35s var(--ease);
+}
+
+.primary-nav__list a[aria-current="page"]::after,
+.primary-nav__list a:hover::after,
+.primary-nav__list a:focus-visible::after {
+  width: 3.5rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   Header — Social icons
+   -------------------------------------------------------------------------- */
 
 .social-icons {
   display: flex;
-
   align-items: center;
 
   gap: 0.85rem;
 }
 
 .social-icons a {
-  color: var(--color-ink);
-
   display: flex;
+
+  color: var(--color-ink);
 
   transition: color 0.2s var(--ease);
 }
@@ -281,17 +344,14 @@ p {
   color: var(--color-amber-deep);
 }
 
-
 /* Desktop copy */
 .social-icons--in-header {
   display: none;
 }
 
-
 /* Mobile copy */
 .social-icons--in-nav {
   margin-top: 2.5rem;
-
   padding-top: 1.5rem;
 
   border-top: 1px solid rgba(244, 237, 225, 0.2);
@@ -307,33 +367,30 @@ p {
 }
 
 
-/* ==========================================================================
-   HEADER — LANGUAGES
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Header — Language switch
+   -------------------------------------------------------------------------- */
 
 .lang-switch {
   display: none;
-
   align-items: center;
+
+  flex-shrink: 0;
 
   gap: 0.55rem;
 
   white-space: nowrap;
-
-  flex-shrink: 0;
 }
 
 .lang-switch__btn {
-  background: none;
-
-  border: none;
-
   padding: 0.2rem 0;
+
+  background: none;
+  border: none;
 
   color: var(--color-ink);
 
   font-family: var(--font-body);
-
   font-size: 0.85rem;
 
   letter-spacing: 0.05em;
@@ -350,7 +407,6 @@ p {
 
 .lang-switch__btn.is-active {
   color: var(--color-amber-deep);
-
   font-weight: 600;
 }
 
@@ -363,37 +419,31 @@ p {
 }
 
 
-/* ==========================================================================
-   HEADER — MOBILE BUTTON
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Header — Mobile toggle
+   -------------------------------------------------------------------------- */
 
 .nav-toggle {
-  margin-left: auto;
-
   display: flex;
-
   flex-direction: column;
-
   justify-content: center;
 
-  gap: 5px;
-
   width: 2.4rem;
-
   height: 2.4rem;
 
+  margin-left: auto;
   padding: 0;
 
   background: none;
-
   border: none;
+
+  gap: 5px;
 
   cursor: pointer;
 }
 
 .nav-toggle__bar {
   width: 100%;
-
   height: 2px;
 
   background: var(--color-ink);
@@ -403,107 +453,16 @@ p {
     opacity 0.3s var(--ease);
 }
 
-.nav-toggle[aria-expanded="true"]
-.nav-toggle__bar:nth-child(1) {
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
 
-.nav-toggle[aria-expanded="true"]
-.nav-toggle__bar:nth-child(2) {
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
   opacity: 0;
 }
 
-.nav-toggle[aria-expanded="true"]
-.nav-toggle__bar:nth-child(3) {
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
-}
-
-
-/* ==========================================================================
-   DESKTOP HEADER
-   ========================================================================== */
-
-@media (min-width: 900px) {
-
-  .site-header__inner {
-    /*
-      O nome fica à esquerda.
-
-      O conjunto NAV + IDIOMAS + SOCIAIS
-      é empurrado para a direita.
-    */
-
-    display: flex;
-
-    align-items: center;
-
-    width: 100%;
-
-    padding-left: var(--content-pad);
-    padding-right: var(--content-pad);
-  }
-
-
-  /* ----------------------------------
-     NAV
-     ---------------------------------- */
-
-  .primary-nav {
-    display: block;
-
-    margin-left: auto;
-  }
-
-  .primary-nav__list {
-    display: flex;
-
-    align-items: center;
-
-    gap: 1.8rem;
-  }
-
-
-  /* ----------------------------------
-     LANGUAGES
-     ---------------------------------- */
-
-  .lang-switch {
-    display: flex;
-
-    align-items: center;
-
-    gap: 0.55rem;
-
-    margin-left: 2.2rem;
-  }
-
-
-  /* ----------------------------------
-     SOCIALS
-     ---------------------------------- */
-
-  .social-icons--in-header {
-    display: flex;
-
-    align-items: center;
-
-    gap: 0.85rem;
-
-    margin-left: 2rem;
-  }
-
-
-  /* ----------------------------------
-     MOBILE ELEMENTS OFF
-     ---------------------------------- */
-
-  .social-icons--in-nav {
-    display: none;
-  }
-
-  .nav-toggle {
-    display: none;
-  }
 }
 
 
@@ -512,31 +471,25 @@ p {
    ========================================================================== */
 
 @media (max-width: 899px) {
-
   .primary-nav {
     position: fixed;
-
     inset: 0 0 0 auto;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     width: min(85vw, 22rem);
-
-    height: 100vh;
-
-    background: var(--color-ink);
-
-    color: var(--color-parchment);
+    height: 100dvh;
 
     padding: 6rem 2rem 2rem;
+
+    background: var(--color-ink);
+    color: var(--color-parchment);
 
     transform: translateX(100%);
 
     transition: transform 0.35s var(--ease);
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
   }
 
   .primary-nav.is-open {
@@ -545,27 +498,59 @@ p {
 
   .primary-nav__list {
     display: flex;
-
     flex-direction: column;
-
     align-items: flex-start;
 
     gap: 1.4rem;
   }
 
   .primary-nav__list a {
-    font-family: var(--font-display);
-
-    font-size: 1.6rem;
-
-    font-weight: 400;
-
     color: var(--color-parchment);
+
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 400;
   }
 
   .primary-nav__list a:hover,
   .primary-nav__list a:focus-visible {
     color: var(--color-amber);
+  }
+}
+
+
+/* ==========================================================================
+   DESKTOP HEADER
+   ========================================================================== */
+
+@media (min-width: 900px) {
+  .site-header__inner {
+    width: 100%;
+
+    padding-right: var(--content-pad);
+    padding-left: var(--content-pad);
+  }
+
+  .primary-nav {
+    display: block;
+    margin-left: auto;
+  }
+
+  .lang-switch {
+    display: flex;
+
+    margin-left: 2.2rem;
+  }
+
+  .social-icons--in-header {
+    display: flex;
+
+    margin-left: 2rem;
+  }
+
+  .social-icons--in-nav,
+  .nav-toggle {
+    display: none;
   }
 }
 
@@ -577,34 +562,30 @@ p {
 .hero {
   position: relative;
 
-  min-height: 93svh;
-
   display: flex;
-
   align-items: flex-end;
+
+  min-height: calc(93svh + var(--header-height));
+  margin-top: calc(-1 * var(--header-height));
 
   overflow: hidden;
 }
 
 .hero__media {
   position: absolute;
-
   inset: 0;
 }
 
 .hero__image {
   width: 100%;
-
   height: 100%;
 
   object-fit: cover;
-
   object-position: 75% 30%;
 }
 
 .hero__scrim {
   position: absolute;
-
   inset: 0;
 
   background: linear-gradient(
@@ -617,13 +598,9 @@ p {
 
 .hero__content {
   position: relative;
-
   z-index: 2;
 
-  color: var(--color-parchment);
-
   width: 100%;
-
   max-width: var(--content-max);
 
   margin: 0 auto;
@@ -632,27 +609,25 @@ p {
     0
     var(--content-pad)
     clamp(2.5rem, 8vh, 5rem);
+
+  color: var(--color-parchment);
 }
 
 .hero__eyebrow {
-  font-size: var(--step-eyebrow);
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.22em;
+  margin-bottom: 0.8rem;
 
   color: var(--color-amber);
 
-  margin-bottom: 0.8rem;
+  font-size: var(--step-eyebrow);
+
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
 }
 
 .hero__name {
   font-family: var(--font-display);
-
-  font-weight: 400;
-
   font-size: var(--step-name);
-
+  font-weight: 400;
   line-height: 0.95;
 
   letter-spacing: -0.01em;
@@ -663,44 +638,36 @@ p {
 }
 
 .hero__name-line--last {
-  font-style: italic;
-
-  font-weight: 300;
-
   color: var(--color-parchment-dim);
+
+  font-style: italic;
+  font-weight: 300;
 }
 
 .hero__tagline {
-  margin-top: 1.4rem;
-
   max-width: 30rem;
 
-  font-size: clamp(
-    1rem,
-    0.4vw + 0.95rem,
-    1.2rem
-  );
+  margin-top: 1.4rem;
 
   color: var(--color-parchment-dim);
+
+  font-size: clamp(1rem, 0.4vw + 0.95rem, 1.2rem);
 }
 
 .hero__cta {
   display: inline-flex;
-
   flex-direction: column;
 
   gap: 0.4rem;
 
   margin-top: 2.4rem;
 
-  text-decoration: none;
-
   color: var(--color-parchment);
 
   font-size: 0.85rem;
 
   letter-spacing: 0.12em;
-
+  text-decoration: none;
   text-transform: uppercase;
 }
 
@@ -708,7 +675,6 @@ p {
   display: block;
 
   width: 2.5rem;
-
   height: 1px;
 
   background: var(--color-amber);
@@ -721,26 +687,41 @@ p {
   width: 4.5rem;
 }
 
-.bio-hero {
+
+/* ==========================================================================
+   BIO HERO
+   ========================================================================== */
+
+.page-hero {
   position: relative;
-  height: clamp(320px, 55vh, 560px);
+
   display: flex;
   align-items: flex-end;
+
+  height: calc(clamp(320px, 55vh, 560px) + var(--header-height));
+
+  margin-top: calc(-1 * var(--header-height));
+
   overflow: hidden;
 }
-.bio-hero__media {
+
+.page-hero__media {
   position: absolute;
   inset: 0;
 }
-.bio-hero__image {
+
+.page-hero__image {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
-  object-position: center 5%;
+  object-position: center 0%;
 }
-.bio-hero__scrim {
+
+.page-hero__scrim {
   position: absolute;
   inset: 0;
+
   background: linear-gradient(
     to top,
     rgba(28, 23, 18, 0.85) 0%,
@@ -748,23 +729,30 @@ p {
     rgba(28, 23, 18, 0.05) 75%
   );
 }
-.bio-hero__content {
+
+.page-hero__content {
   position: relative;
   z-index: 2;
+
   width: 100%;
   max-width: var(--content-max);
+
   margin: 0 auto;
-  padding: 0 var(--content-pad) clamp(1.5rem, 5vh, 3rem);
-}
-.bio-hero__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-style: italic;
-  font-size: clamp(2.2rem, 6vw + 1rem, 4.5rem);
-  color: var(--color-parchment);
+
+  padding:
+    0
+    var(--content-pad)
+    clamp(1.5rem, 5vh, 3rem);
 }
 
-/* ================================================================ MOBILE ================================================================ */ 
+.page-hero__title {
+  color: var(--color-parchment);
+
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw + 1rem, 4.5rem);
+  font-style: italic;
+  font-weight: 400;
+}
 
 
 /* ==========================================================================
@@ -781,34 +769,29 @@ p {
   max-width: var(--content-max);
 
   margin: 0 auto;
-
   padding: 0 var(--content-pad);
 }
 
 .section__title {
-  font-family: var(--font-display);
-
-  font-weight: 400;
-
-  font-size: var(--step-h2);
-
   display: flex;
-
   align-items: baseline;
 
   gap: 1.1rem;
 
   margin-bottom: clamp(2rem, 5vw, 3.5rem);
+
+  font-family: var(--font-display);
+  font-size: var(--step-h2);
+  font-weight: 400;
 }
 
 .section__title-rule {
-  width: clamp(2rem, 6vw, 4rem);
+  flex-shrink: 0;
 
+  width: clamp(2rem, 6vw, 4rem);
   height: 1px;
 
   background: var(--color-amber);
-
-  flex-shrink: 0;
 }
 
 
@@ -819,38 +802,28 @@ p {
 .bio-teaser__text {
   max-width: 38rem;
 
+  margin-bottom: 1.8rem;
+
   color: var(--color-ink-soft);
 
-  font-size: clamp(
-    1.1rem,
-    0.5vw + 1rem,
-    1.35rem
-  );
-
   font-family: var(--font-display);
-
+  font-size: clamp(1.1rem, 0.5vw + 1rem, 1.35rem);
   font-weight: 300;
-
   line-height: 1.5;
-
-  margin-bottom: 1.8rem;
 }
 
 .text-link {
   display: inline-flex;
-
   flex-direction: column;
 
   gap: 0.4rem;
-
-  text-decoration: none;
 
   color: var(--color-amber-deep);
 
   font-size: 0.85rem;
 
   letter-spacing: 0.12em;
-
+  text-decoration: none;
   text-transform: uppercase;
 }
 
@@ -858,7 +831,6 @@ p {
   display: block;
 
   width: 2.5rem;
-
   height: 1px;
 
   background: var(--color-amber);
@@ -877,12 +849,17 @@ p {
    ========================================================================== */
 
 .bio__text {
-  max-width: 42rem;
   display: flex;
   flex-direction: column;
+
+  max-width: 42rem;
+
   gap: 1.3rem;
+
   color: var(--color-ink-soft);
+
   font-size: var(--step-body);
+
   text-align: justify;
   hyphens: auto;
 }
@@ -891,42 +868,42 @@ p {
   margin: 0;
 }
 
+
+/* --------------------------------------------------------------------------
+   Bio — Venues
+   -------------------------------------------------------------------------- */
+
 .venues {
   margin-top: clamp(3rem, 6vw, 4.5rem);
-
   padding-top: clamp(2rem, 4vw, 3rem);
 
   border-top: 1px solid var(--color-line);
 }
 
 .venues__title {
-  font-size: var(--step-eyebrow);
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.15em;
+  margin-bottom: 1.2rem;
 
   color: var(--color-amber-deep);
 
-  margin-bottom: 1.2rem;
+  font-size: var(--step-eyebrow);
+
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 .venues__list {
   display: flex;
-
   flex-wrap: wrap;
 
   gap: 0.6rem 1rem;
 }
 
 .venues__list li {
-  font-family: var(--font-display);
-
-  font-style: italic;
-
-  font-size: 1.05rem;
-
   color: var(--color-coffee);
+
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
 }
 
 .venues__list li:not(:last-child)::after {
@@ -939,29 +916,40 @@ p {
   font-style: normal;
 }
 
+
 /* ==========================================================================
    SCHEDULE
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   Schedule — Tabs
+   -------------------------------------------------------------------------- */
+
 .schedule-tabs {
   display: flex;
   align-items: flex-end;
+
   gap: 2rem;
+
   margin-bottom: 2.8rem;
+
   border-bottom: 1px solid var(--color-line);
 }
 
 .schedule-tab {
   position: relative;
-  background: none;
-  border: none;
+
   padding: 0 0 0.75rem;
 
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.08rem;
-  font-weight: 400;
+  background: none;
+  border: none;
+
   color: var(--color-coffee);
+
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-style: italic;
+  font-weight: 400;
 
   cursor: pointer;
 
@@ -970,9 +958,11 @@ p {
 
 .schedule-tab::after {
   content: "";
+
   position: absolute;
   left: 0;
   bottom: -1px;
+
   width: 100%;
   height: 1px;
 
@@ -992,29 +982,32 @@ p {
   transform: scaleX(1);
 }
 
-.schedule-tab:hover {
+.schedule-tab:hover,
+.schedule-tab:focus-visible {
   color: var(--color-amber-deep);
 }
 
 
-/* ==========================================================================
-   LISTAS
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Schedule — Lists
+   -------------------------------------------------------------------------- */
 
 .schedule-list {
   display: flex;
   flex-direction: column;
 }
 
-/* Necessário para o JavaScript controlar as tabs */
+/*
+ * Necessário para o JavaScript controlar as tabs.
+ */
 .schedule-list[hidden] {
   display: none !important;
 }
 
 
-/* ==========================================================================
-   ANOS
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Schedule — Years
+   -------------------------------------------------------------------------- */
 
 .schedule-year {
   position: relative;
@@ -1022,12 +1015,12 @@ p {
   margin-top: 3.2rem;
   padding: 0 0 0.7rem;
 
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.15rem;
-  font-weight: 400;
-
   color: var(--color-amber-deep);
+
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 400;
 
   border-bottom: 1px solid var(--color-line);
 }
@@ -1041,13 +1034,15 @@ p {
 }
 
 
-/* ==========================================================================
-   EVENTOS
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Schedule — Items
+   -------------------------------------------------------------------------- */
 
 .schedule-item {
   display: grid;
+
   grid-template-columns: 4.5rem minmax(0, 1fr);
+
   column-gap: 1.5rem;
 
   padding: 1.5rem 0.75rem 1.5rem 0;
@@ -1061,23 +1056,12 @@ p {
 }
 
 
-/* ==========================================================================
-   EVENTOS ALTERNADOS
-   ========================================================================== */
-
 /*
+ * Alternância dos eventos
+ *
  * O HTML contém .schedule-year e .schedule-item como <li>.
- *
- * ":nth-child(even of .schedule-item)" conta apenas os elementos
- * .schedule-item, ignorando completamente os .schedule-year.
- *
- * Resultado:
- *
- * evento 1 → normal
- * evento 2 → ligeiramente mais escuro
- * evento 3 → normal
- * evento 4 → ligeiramente mais escuro
- * etc.
+ * A sintaxe "nth-child(even of .schedule-item)" conta apenas
+ * os elementos .schedule-item.
  */
 
 .schedule-item:nth-child(even of .schedule-item) {
@@ -1085,13 +1069,21 @@ p {
 }
 
 
-/* ==========================================================================
-   HOVER
-   ========================================================================== */
+/* First event after a year heading */
+.schedule-year + .schedule-item {
+  padding-top: 1.7rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   Schedule — Hover
+   -------------------------------------------------------------------------- */
 
 .schedule-item:hover {
-  background: rgba(184, 135, 79, 0.10);
   padding-left: 0.75rem;
+
+  background: rgba(184, 135, 79, 0.1);
+
   border-bottom-color: var(--color-amber);
 }
 
@@ -1104,16 +1096,9 @@ p {
 }
 
 
-/* Primeiro evento depois do ano */
-
-.schedule-year + .schedule-item {
-  padding-top: 1.7rem;
-}
-
-
-/* ==========================================================================
-   DATA
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Schedule — Date
+   -------------------------------------------------------------------------- */
 
 .schedule-item__datebox {
   display: flex;
@@ -1128,12 +1113,12 @@ p {
 }
 
 .schedule-item__day {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.65rem;
-  font-weight: 400;
-
   color: var(--color-amber-deep);
+
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-style: italic;
+  font-weight: 400;
 
   transition: color 0.25s var(--ease);
 }
@@ -1141,20 +1126,20 @@ p {
 .schedule-item__month {
   margin-top: 0.35rem;
 
+  color: var(--color-coffee);
+
   font-family: var(--font-body);
   font-size: 0.65rem;
   font-weight: 500;
 
   letter-spacing: 0.12em;
   text-transform: uppercase;
-
-  color: var(--color-coffee);
 }
 
 
-/* ==========================================================================
-   INFORMAÇÃO
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Schedule — Information
+   -------------------------------------------------------------------------- */
 
 .schedule-item__info {
   min-width: 0;
@@ -1163,12 +1148,12 @@ p {
 .schedule-item__title {
   margin: 0 0 0.3rem;
 
+  color: var(--color-ink);
+
   font-family: var(--font-display);
   font-size: 1.08rem;
   font-weight: 400;
   line-height: 1.35;
-
-  color: var(--color-ink);
 
   transition: color 0.25s var(--ease);
 }
@@ -1176,30 +1161,48 @@ p {
 .schedule-item__venue {
   margin: 0 0 0.25rem;
 
+  color: var(--color-coffee);
+
   font-family: var(--font-body);
   font-size: 0.82rem;
   line-height: 1.45;
-
-  color: var(--color-coffee);
 }
 
 .schedule-item__program {
   margin: 0;
 
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.82rem;
-  line-height: 1.45;
-
   color: var(--color-coffee);
+
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.45;
 }
 
 
-/* ==========================================================================
-   EVENTOS PASSADOS
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Schedule — Past events
+   -------------------------------------------------------------------------- */
 
-.schedule-list--past .schedule-item__day {
+.schedule-past__title {
+  margin: 3rem 0 1.5rem;
+  padding-top: 2rem;
+
+  color: var(--color-coffee);
+
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-style: italic;
+
+  border-top: 1px solid var(--color-line);
+}
+
+.schedule-list--past {
+  opacity: 0.65;
+}
+
+.schedule-list--past .schedule-item__day,
+.schedule-list--past .schedule-item__date {
   color: var(--color-coffee);
 }
 
@@ -1220,88 +1223,15 @@ p {
    ========================================================================== */
 
 .empty-state {
+  padding: 2rem 0;
+
   color: var(--color-coffee);
 
   font-family: var(--font-display);
-  font-style: italic;
   font-size: 1.05rem;
-
-  padding: 2rem 0;
+  font-style: italic;
 
   border-top: 1px solid var(--color-line);
-}
-
-
-/* ==========================================================================
-   MOBILE
-   ========================================================================== */
-
-@media (max-width: 600px) {
-
-  .schedule-tabs {
-    gap: 1.5rem;
-    margin-bottom: 2.2rem;
-  }
-
-  .schedule-tab {
-    font-size: 1rem;
-  }
-
-
-  /* ANOS */
-
-  .schedule-year {
-    margin-top: 2.8rem;
-    font-size: 1.05rem;
-  }
-
-  .schedule-year:not(:first-child) {
-    margin-top: 3.2rem;
-  }
-
-
-  /* EVENTOS */
-
-  .schedule-item {
-    grid-template-columns: 3.8rem minmax(0, 1fr);
-    column-gap: 1rem;
-
-    padding: 1.3rem 0.5rem 1.3rem 0;
-  }
-
-  .schedule-year + .schedule-item {
-    padding-top: 1.5rem;
-  }
-
-
-  /* DATA */
-
-  .schedule-item__day {
-    font-size: 1.45rem;
-  }
-
-  .schedule-item__month {
-    font-size: 0.6rem;
-  }
-
-
-  /* TEXTO */
-
-  .schedule-item__title {
-    font-size: 1rem;
-  }
-
-  .schedule-item__venue,
-  .schedule-item__program {
-    font-size: 0.78rem;
-  }
-
-
-  /* HOVER */
-
-  .schedule-item:hover {
-    padding-left: 0.5rem;
-  }
 }
 
 
@@ -1311,26 +1241,33 @@ p {
 
 .media-grid {
   display: grid;
-  gap: 1.8rem;
+
   grid-template-columns: 1fr;
+
+  gap: 1.8rem;
 }
 
 .media-card {
   background: var(--color-white);
+
   border: 1px solid var(--color-line);
 }
 
 .media-card__frame {
   position: relative;
+
   aspect-ratio: 16 / 9;
+
   background: var(--color-ink);
 }
 
 .media-card__frame iframe {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
+
   border: 0;
 }
 
@@ -1339,14 +1276,16 @@ p {
 }
 
 .media-card__title {
+  margin-bottom: 0.3rem;
+
   font-family: var(--font-display);
   font-size: 1.15rem;
-  margin-bottom: 0.3rem;
 }
 
 .media-card__meta {
-  font-size: 0.85rem;
   color: var(--color-coffee);
+
+  font-size: 0.85rem;
 }
 
 @media (min-width: 640px) {
@@ -1357,34 +1296,44 @@ p {
 
 
 /* ==========================================================================
-   PROJECTS — foto a sangue com nome sobreposto, legenda centrada por baixo
+   PROJECTS — GRID / PREVIEW
    ========================================================================== */
 
 .projects-grid {
   display: grid;
-  gap: 1.8rem;
+
   grid-template-columns: 1fr;
+
+  gap: 1.8rem;
+
   margin-bottom: 1.8rem;
 }
 
 .project-card {
   display: block;
-  text-decoration: none;
+
   color: inherit;
+
+  text-decoration: none;
 }
 
 .project-card__media {
   position: relative;
+
   aspect-ratio: 4 / 3;
+
   overflow: hidden;
 }
 
 .project-card__image {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   transition: transform 0.4s var(--ease);
 }
+
 .project-card:hover .project-card__image,
 .project-card:focus-visible .project-card__image {
   transform: scale(1.04);
@@ -1393,12 +1342,14 @@ p {
 .project-card__scrim {
   position: absolute;
   inset: 0;
+
   background: linear-gradient(
     to top,
     rgba(28, 20, 15, 0.85) 0%,
     rgba(28, 20, 15, 0.15) 55%,
     transparent 75%
   );
+
   pointer-events: none;
 }
 
@@ -1407,56 +1358,116 @@ p {
   left: 0;
   right: 0;
   bottom: 0.9rem;
+
   margin: 0;
   padding: 0 1rem;
-  text-align: center;
+
+  color: var(--color-parchment);
+
   font-family: var(--font-display);
+  font-size: 1.3rem;
   font-style: italic;
   font-weight: 400;
-  font-size: 1.3rem;
-  color: var(--color-parchment);
+
+  text-align: center;
 }
 
 .project-card__caption {
-  text-align: center;
   margin-top: 0.8rem;
+
+  text-align: center;
 }
 
 .project-card__caption-line {
   display: inline-block;
+
   width: 1.6rem;
   height: 1px;
-  background: var(--color-amber);
+
   margin-bottom: 0.5rem;
+
+  background: var(--color-amber);
 }
 
 .project-card__meta {
   margin: 0;
-  font-size: 0.82rem;
-  color: var(--color-coffee);
-}
 
-@media (min-width: 640px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .project-card__title {
-    font-size: 1.5rem;
-  }
+  color: var(--color-coffee);
+
+  font-size: 0.82rem;
 }
 
 
 /* ==========================================================================
-   EMPTY STATE
+   PROJECTS — DETAILED PAGE
    ========================================================================== */
 
-.empty-state {
-  color: var(--color-coffee);
-  font-style: italic;
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  padding: 2rem 0;
+/*
+ * Formato A:
+ * blocos grandes alternados com imagem, título e texto.
+ */
+
+.projects-detailed {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3rem;
+}
+
+.project-block {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  grid-template-areas:
+    "title"
+    "image"
+    "text";
+
+  gap: 1rem;
+}
+
+.project-block:not(:first-child) {
+  padding-top: 3rem;
+
   border-top: 1px solid var(--color-line);
+}
+
+.project-block__title {
+  grid-area: title;
+
+  color: var(--color-ink);
+
+  font-family: "Allura", cursive;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.project-block__image {
+  grid-area: image;
+
+  width: 100%;
+
+  aspect-ratio: 4 / 3;
+
+  object-fit: cover;
+}
+
+.project-block__text-wrap {
+  grid-area: text;
+}
+
+.project-block__text {
+  max-width: 38rem;
+
+  margin-bottom: 1.2rem;
+
+  color: var(--color-ink-soft);
+
+  line-height: 1.6;
+
+  text-align: justify;
+  hyphens: auto;
 }
 
 
@@ -1465,53 +1476,49 @@ p {
    ========================================================================== */
 
 .contact__intro {
-  color: var(--color-coffee);
-
   margin-bottom: 1rem;
+
+  color: var(--color-coffee);
 }
 
 .contact__details {
   display: flex;
-
   flex-direction: column;
 
   gap: 0.8rem;
 }
 
 .contact__email {
+  width: fit-content;
+
+  color: inherit;
+
   font-family: var(--font-display);
-
   font-size: clamp(1.4rem, 3vw, 2rem);
-
   font-style: italic;
 
   text-decoration: none;
 
   border-bottom: 1px solid var(--color-amber);
-
-  width: fit-content;
 }
 
 .contact__social {
   display: flex;
+  flex-wrap: wrap;
 
   gap: 1.2rem;
 
   margin-top: 0.6rem;
-
-  flex-wrap: wrap;
 }
 
 .contact__social a {
-  text-decoration: none;
+  color: var(--color-coffee);
 
   font-size: 0.9rem;
 
   letter-spacing: 0.05em;
-
+  text-decoration: none;
   text-transform: uppercase;
-
-  color: var(--color-coffee);
 
   border-bottom: 1px solid transparent;
 
@@ -1534,163 +1541,35 @@ p {
 
 .site-footer {
   background: var(--color-ink);
-
   color: var(--color-parchment-dim);
 }
 
 .site-footer__inner {
+  display: flex;
+  flex-direction: column;
+
   max-width: var(--content-max);
 
   margin: 0 auto;
+  padding: 1rem var(--content-pad);
 
-  padding: 3rem var(--content-pad);
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 1.2rem;
+  gap: 1rem;
 
   font-size: 0.85rem;
 }
 
 .site-footer__top {
-  text-decoration: none;
+  width: fit-content;
 
   color: var(--color-amber);
 
-  letter-spacing: 0.08em;
-
-  text-transform: uppercase;
-
   font-size: 0.75rem;
 
-  width: fit-content;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-/* ==========================================================================
-   PROJECTS DETAILED (projects.html) — formato A: blocos grandes alternados
-   ========================================================================== */
-
-.projects-detailed {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.project-block:not(:first-child) {
-  border-top: 1px solid var(--color-line);
-  padding-top: 3rem;
-}
-
-.project-block {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "title"
-    "image"
-    "text";
-  gap: 1rem;
-}
-
-.project-block__title {
-  grid-area: title;
-  font-family: 'Allura', cursive;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--color-ink);
-}
-
-.project-block__image {
-  grid-area: image;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-
-.project-block__text-wrap {
-  grid-area: text;
-}
-
-.project-block__text {
-  color: var(--color-ink-soft);
-  line-height: 1.6;
-  margin-bottom: 1.2rem;
-  max-width: 38rem;
-  text-align: justify;
-  hyphens: auto;
-}
-
-@media (min-width: 800px) {
-  .project-block {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "image title"
-      "image text";
-    align-items: start;
-    gap: 0 3rem;
-  }
-  .project-block__title {
-    font-size: 2.8rem;
-    align-self: end;
-  }
-  .project-block:nth-child(even) {
-    grid-template-areas:
-      "title image"
-      "text image";
-  }
-  .project-block__image {
-    height: 100%;
-  }
-
-#projects-preview {
-  padding-top: clamp(1rem, 2vw, 2rem);
-}
-
-  }
-
-  @media (max-width: 700px) {
-  .hero {
-    min-height: 55svh;
-  }
-  .hero__image {
-    object-position: 85% 25%;
-  }
-
-.bio-hero--compact {
-  aspect-ratio: 21 / 10;
-  height: auto;
-  max-height: 300px;
-  min-height: 200px;
-}
-
-}
-
-@media (max-width: 899px) {
-
-  /* Posição do texto — bio.html (só mobile) */
-  .bio-hero--bio {
-    align-items: flex-start;
-  }
-  .bio-hero--bio .bio-hero__content {
-    padding: clamp(1.5rem, 5vh, 3rem) var(--content-pad) 0;
-  }
-
-  /* Posição do texto — projects.html (só mobile) */
-  .bio-hero--compact {
-    align-items: flex-start;
-  }
-
-  
-  .bio-hero--bio .bio-hero__title,
-.bio-hero--compact .bio-hero__title {
-  text-shadow: 0 2px 30px rgba(0, 0, 0, 1.5);
-}
-
-}
-.bio-hero--schedule .bio-hero__image {
-  object-position: center 20%;
-}
 
 /* ==========================================================================
    FLOATING CARD — NEXT CONCERT
@@ -1698,20 +1577,22 @@ p {
 
 .floating-concert {
   position: fixed;
-  bottom: 1.2rem;
   right: 1.2rem;
+  bottom: 1.2rem;
+
   z-index: 200;
 
   display: flex;
   align-items: center;
+
   gap: 1rem;
 
+  padding: 0.65rem 1.35rem 0.65rem 0.65rem;
+
   background: var(--color-ink);
+
   border: 1px solid var(--color-amber);
   border-radius: 999px;
-
-  /* Mais espaço para o conteúdo respirar */
-  padding: 0.65rem 1.35rem 0.65rem 0.65rem;
 
   box-shadow: 0 8px 30px rgba(28, 23, 18, 0.16);
 
@@ -1723,33 +1604,34 @@ p {
 
 .floating-concert:hover {
   transform: translateY(-2px);
+
   border-color: var(--color-amber-deep);
+
   box-shadow: 0 12px 34px rgba(28, 23, 18, 0.22);
 }
 
 
-/* ==========================================================================
-   DATA / BADGE
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Floating concert — Badge
+   -------------------------------------------------------------------------- */
 
 .floating-concert__badge {
-  width: 56px;
-  height: 56px;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background: var(--color-ink-soft);
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
+  flex-shrink: 0;
+
+  width: 56px;
+  height: 56px;
+
   color: var(--color-parchment);
 
+  background: var(--color-ink-soft);
+
   border: 1px solid rgba(184, 135, 79, 0.35);
+  border-radius: 50%;
 
   transition:
     background-color 0.3s var(--ease),
@@ -1758,15 +1640,18 @@ p {
 
 .floating-concert:hover .floating-concert__badge {
   background: var(--color-coffee);
+
   transform: scale(1.03);
 }
 
 .floating-concert__badge-month {
+  color: var(--color-amber);
+
   font-family: var(--font-body);
   font-size: 0.55rem;
+
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-amber);
 }
 
 .floating-concert__badge-day {
@@ -1774,14 +1659,14 @@ p {
 
   font-family: var(--font-display);
   font-size: 1.2rem;
-  line-height: 1;
   font-style: italic;
+  line-height: 1;
 }
 
 
-/* ==========================================================================
-   CONTEÚDO
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Floating concert — Content
+   -------------------------------------------------------------------------- */
 
 .floating-concert__content {
   display: flex;
@@ -1796,24 +1681,24 @@ p {
 .floating-concert__label {
   margin: 0 0 0.25rem;
 
+  color: var(--color-amber);
+
   font-family: var(--font-body);
   font-size: 0.62rem;
   line-height: 1.2;
 
-  text-transform: uppercase;
   letter-spacing: 0.1em;
-
-  color: var(--color-amber);
+  text-transform: uppercase;
 }
 
 .floating-concert__venue {
   margin: 0 0 0.4rem;
 
+  color: var(--color-parchment);
+
   font-family: var(--font-display);
   font-size: 0.9rem;
   line-height: 1.3;
-
-  color: var(--color-parchment);
 
   white-space: nowrap;
 }
@@ -1822,15 +1707,15 @@ p {
   display: inline-block;
   align-self: flex-start;
 
+  color: var(--color-parchment-dim);
+
   font-family: var(--font-body);
   font-size: 0.65rem;
   line-height: 1.3;
 
-  text-transform: uppercase;
   letter-spacing: 0.06em;
-
-  color: var(--color-parchment-dim);
   text-decoration: none;
+  text-transform: uppercase;
 
   border-bottom: 1px solid var(--color-amber);
 
@@ -1842,42 +1727,42 @@ p {
 .floating-concert__link:hover,
 .floating-concert__link:focus-visible {
   color: var(--color-amber);
+
   border-color: var(--color-parchment);
 }
 
 
-/* ==========================================================================
-   BOTÃO FECHAR
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Floating concert — Close button
+   -------------------------------------------------------------------------- */
 
 .floating-concert__close {
   position: absolute;
   top: -0.4rem;
   right: -0.4rem;
 
-  width: 1.25rem;
-  height: 1.25rem;
-
-  border-radius: 50%;
-
-  background: var(--color-ink-soft);
-  color: var(--color-parchment-dim);
-
-  border: 1px solid var(--color-amber);
-
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 400;
-
-  cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
+  width: 1.25rem;
+  height: 1.25rem;
+
   padding: 0;
 
+  color: var(--color-parchment-dim);
+
+  background: var(--color-ink-soft);
+
+  border: 1px solid var(--color-amber);
+  border-radius: 50%;
+
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 400;
   line-height: 1;
+
+  cursor: pointer;
 
   transition:
     color 0.2s var(--ease),
@@ -1887,26 +1772,208 @@ p {
 
 .floating-concert__close:hover {
   color: var(--color-amber);
+
   background: var(--color-ink);
+
   transform: rotate(90deg);
 }
 
 
 /* ==========================================================================
-   MOBILE
+   RESPONSIVE — MOBILE
+   ========================================================================== */
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: calc(55svh + var(--header-height));
+  }
+
+  .hero__image {
+    object-position: 85% 25%;
+  }
+
+  .page-hero--projects {
+    min-height: calc(200px + var(--header-height));
+    max-height: calc(300px + var(--header-height));
+
+    height: auto;
+
+    aspect-ratio: 21 / 10;
+  }
+
+  .page-hero--projects .page-hero__image {
+    object-position: left 100%;
+  }
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — SCHEDULE MOBILE
+   ========================================================================== */
+
+@media (max-width: 600px) {
+  .schedule-tabs {
+    gap: 1.5rem;
+
+    margin-bottom: 2.2rem;
+  }
+
+  .schedule-tab {
+    font-size: 1rem;
+  }
+
+  .schedule-year {
+    margin-top: 2.8rem;
+
+    font-size: 1.05rem;
+  }
+
+  .schedule-year:not(:first-child) {
+    margin-top: 3.2rem;
+  }
+
+  .schedule-item {
+    grid-template-columns: 3.8rem minmax(0, 1fr);
+
+    column-gap: 1rem;
+
+    padding: 1.3rem 0.5rem 1.3rem 0;
+  }
+
+  .schedule-year + .schedule-item {
+    padding-top: 1.5rem;
+  }
+
+  .schedule-item__day {
+    font-size: 1.45rem;
+  }
+
+  .schedule-item__month {
+    font-size: 0.6rem;
+  }
+
+  .schedule-item__title {
+    font-size: 1rem;
+  }
+
+  .schedule-item__venue,
+  .schedule-item__program {
+    font-size: 0.78rem;
+  }
+
+  .schedule-item:hover {
+    padding-left: 0.5rem;
+  }
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — MOBILE BIO / PROJECT HERO
+   ========================================================================== */
+
+@media (max-width: 899px) {
+  /* Bio page */
+  .page-hero--bio {
+    align-items: flex-start;
+  }
+
+  .page-hero--bio .page-hero__content {
+    padding:
+      clamp(1.5rem, 5vh, 3rem)
+      var(--content-pad)
+      0;
+  }
+
+  /* Projects page */
+  .page-hero--projects {
+    align-items: flex-start;
+  }
+
+  .page-hero--projects .page-hero__content {
+    padding:
+      clamp(1.5rem, 5vh, 3rem)
+      var(--content-pad)
+      0;
+  }
+
+  .page-hero--bio .page-hero__title,
+  .page-hero--projects .page-hero__title {
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.75);
+  }
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — PROJECTS GRID
+   ========================================================================== */
+
+@media (min-width: 640px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-card__title {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — DETAILED PROJECTS
+   ========================================================================== */
+
+@media (min-width: 800px) {
+  .project-block {
+    grid-template-columns: 1fr 1fr;
+
+    grid-template-areas:
+      "image title"
+      "image text";
+
+    align-items: start;
+
+    gap: 0 3rem;
+  }
+
+  .project-block__title {
+    align-self: end;
+
+    font-size: 2.8rem;
+  }
+
+  .project-block:nth-child(even) {
+    grid-template-areas:
+      "title image"
+      "text image";
+  }
+
+  .project-block__image {
+    height: 100%;
+  }
+
+  /*
+   * Mantido no breakpoint original para preservar o comportamento existente.
+   */
+  #projects-preview {
+    padding-top: clamp(1rem, 2vw, 2rem);
+  }
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — FLOATING CONCERT
    ========================================================================== */
 
 @media (max-width: 480px) {
-
   .floating-concert {
-    bottom: 0.9rem;
     right: 0.9rem;
+    bottom: 0.9rem;
+
+    max-width: calc(100vw - 1.8rem);
 
     gap: 0.75rem;
 
     padding: 0.55rem 1rem 0.55rem 0.55rem;
-
-    max-width: calc(100vw - 1.8rem);
   }
 
   .floating-concert__badge {
@@ -1927,9 +1994,11 @@ p {
   }
 
   .floating-concert__venue {
-    font-size: 0.78rem;
-    white-space: normal;
     max-width: 10rem;
+
+    font-size: 0.78rem;
+
+    white-space: normal;
   }
 
   .floating-concert__link {
@@ -1939,14 +2008,13 @@ p {
 
 
 /* ==========================================================================
-   DESKTOP
+   RESPONSIVE — DESKTOP FLOATING CONCERT
    ========================================================================== */
 
 @media (min-width: 900px) {
-
   .floating-concert {
-    bottom: 1.8rem;
     right: 1.8rem;
+    bottom: 1.8rem;
 
     gap: 1.15rem;
 
@@ -1967,13 +2035,15 @@ p {
   }
 
   .floating-concert__label {
-    font-size: 0.68rem;
     margin-bottom: 0.3rem;
+
+    font-size: 0.68rem;
   }
 
   .floating-concert__venue {
-    font-size: 0.92rem;
     margin-bottom: 0.45rem;
+
+    font-size: 0.92rem;
   }
 
   .floating-concert__link {
@@ -1981,19 +2051,45 @@ p {
   }
 }
 
-.schedule-past__title {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.3rem;
-  color: var(--color-coffee);
-  margin: 3rem 0 1.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--color-line);
+
+/* ==========================================================================
+   SCHEDULE — SPECIAL PAGE HERO
+   ========================================================================== */
+
+.page-hero--schedule .page-hero__image {
+  object-position: center 5%;
 }
 
-.schedule-list--past {
-  opacity: 0.65;
-}
-.schedule-list--past .schedule-item__date {
-  color: var(--color-coffee);
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+
+    transition: none;
+  }
+
+  body.js-page-transitions {
+    opacity: 1;
+    transform: none;
+
+    transition: none;
+  }
 }

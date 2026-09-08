@@ -10,9 +10,9 @@
   },
   "venue": { "es": "Museo Sorolla", "en": "Museo Sorolla", "de": "Museo Sorolla" },
   "city": {
-    "es": "P.º del Gral. Martínez Campos, 37, Chamberí, 28010 Madrid",
-    "en": "P.º del Gral. Martínez Campos, 37, Chamberí, 28010 Madrid",
-    "de": "P.º del Gral. Martínez Campos, 37, Chamberí, 28010 Madrid"
+    "es": "Madrid",
+    "en": "Madrid",
+    "de": "Madrid"
   },
   "program": {
     "es": "Música de Debussy, Toldrá, Falla, Granados y Lili Boulanger",
@@ -45,7 +45,7 @@
         "de": "„Dimiko“ — Duo Albor, mit Siddhii Lagrutta"
       },
       "venue": { "es": "kHaus", "en": "kHaus", "de": "kHaus" },
-      "city": { "es": "Kasernenhof 8, 4058 Basel", "en": "Kasernenhof 8, 4058 Basel", "de": "Kasernenhof 8, 4058 Basel" },
+      "city": { "es": "Basel", "en": "Basel", "de": "Basel" },
       "program": {
         "es": "Música de Fauré, Debussy y Poulenc",
         "en": "Music by Fauré, Debussy and Poulenc",
@@ -61,7 +61,7 @@
         "de": "Ebenum Duo — mit Arabela de Miguel Robledo"
       },
       "venue": { "es": "Caixaforum Sevilla", "en": "Caixaforum Sevilla", "de": "Caixaforum Sevilla" },
-      "city": { "es": "C/ López Pintado, s/n, Sevilla", "en": "C/ López Pintado, s/n, Sevilla", "de": "C/ López Pintado, s/n, Sevilla" },
+      "city": { "es": "Sevilla", "en": "Sevilla", "de": "Sevilla" },
       "program": {
         "es": "Música de Beethoven, Debussy, Toldrà, Falla, Lili Boulanger y Dora Pejačević",
         "en": "Music by Beethoven, Debussy, Toldrà, Falla, Lili Boulanger and Dora Pejačević",
@@ -82,9 +82,9 @@
         "de": "Fundación Cerezales Antonino y Cinia"
       },
       "city": {
-        "es": "C/ Antonino Fernández, 76, 24150 Cerezales del Condado, León",
-        "en": "C/ Antonino Fernández, 76, 24150 Cerezales del Condado, León",
-        "de": "C/ Antonino Fernández, 76, 24150 Cerezales del Condado, León"
+        "es": "León",
+        "en": "León",
+        "de": "León"
       },
       "program": {
         "es": "Música de Beethoven, Debussy, Toldrà, Falla, Lili Boulanger y Dora Pejačević",
@@ -102,9 +102,9 @@
       },
       "venue": { "es": "Museo Sorolla", "en": "Museo Sorolla", "de": "Museo Sorolla" },
       "city": {
-        "es": "P.º del Gral. Martínez Campos, 37, Chamberí, 28010 Madrid",
-        "en": "P.º del Gral. Martínez Campos, 37, Chamberí, 28010 Madrid",
-        "de": "P.º del Gral. Martínez Campos, 37, Chamberí, 28010 Madrid"
+        "es": "Madrid",
+        "en": "Madrid",
+        "de": "Madrid"
       },
       "program": {
         "es": "Música de Debussy, Toldrá, Falla, Granados y Lili Boulanger",
