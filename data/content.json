@@ -54,11 +54,16 @@
       "es": "Ebenum Duo",
       "de": "Ebenum Duo"
     },
-      "cardDescription": {
-    "en": "Violin and piano, with Arabela de Miguel Robledo.",
-    "es": "Violín y piano, con Arabela de Miguel Robledo.",
-    "de": "Violine und Klavier, mit Arabela de Miguel Robledo."
-  },
+"instrumentation": {
+  "en": "Violin & Piano",
+  "es": "Violín y Piano",
+  "de": "Violine & Klavier"
+},
+"collaborator": {
+  "en": "with Arabela de Miguel Robledo",
+  "es": "con Arabela de Miguel Robledo",
+  "de": "mit Arabela de Miguel Robledo"
+},  
     "description": {
       "en": "Ebenum Duo is an instrumental duo formed by violinist Arabela de Miguel Robledo and pianist Claudia Fernández Parrondo. Driven by a desire to explore new repertoire and move away from traditional concert formats, Ebenum Duo develops interdisciplinary projects and concert programmes that focus on lesser-known repertoire. Their programmes seek to establish a dialogue between the different works, creating connections that allow them to be contextualised and brought closer to audiences from a historical, thematic, or conceptual perspective.",
       "es": "Ebenum Duo es un dúo instrumental formado por la violinista Arabela de Miguel Robledo y la pianista Claudia Fernández Parrondo. Fruto del deseo de explorar nuevos repertorios y de alejarse de los formatos tradicionales de concierto, Ebenum Duo trata de desarrollar proyectos interdisciplinares y programas de concierto que ponen el foco en repertorio menos conocido. Sus propuestas buscan establecer un diálogo entre las distintas obras, creando conexiones que permitan contextualizarlas y acercarlas al público desde una perspectiva histórica, temática o conceptual.",
@@ -80,11 +85,16 @@
       "es": "Duo Albor",
       "de": "Duo Albor"
     },
-  "cardDescription": {
-    "en": "Soprano and piano, with Siddhi Lagruta.",
-    "es": "Soprano y piano, con Siddhi Lagruta.",
-    "de": "Soprano und Klavier, mit Siddhi Lagruta."
-  },
+"instrumentation": {
+  "en": "Soprano & Piano",
+  "es": "Soprano y Piano",
+  "de": "Sopran & Klavier"
+},
+"collaborator": {
+  "en": "with Siddhi Lagruta",
+  "es": "con Siddhi Lagruta",
+  "de": "mit Siddhi Lagruta"
+},
   
     "description": {
       "en": "Formed by Siddhii Lagrutta (soprano) and Claudia Fernández Parrondo (piano), Duo Albor explores the Lied-Duo repertoire, spanning a broad stylistic arc from Haydn and Mozart to the nationalisms of the 20th century. Their programmes, conceived around a thematic focus, invite audiences to immerse themselves in the musical aesthetics of each proposal through a careful and engaging selection of works.\n\nTheir most recent project, The Human Voice, presents an adaptation of the celebrated work by Francis Poulenc, in which their interdisciplinary approach creates an experience of great intensity on stage. Through this format, Duo Albor presents the work from a renewed perspective and invites reflection on society and new technologies.",
@@ -102,13 +112,17 @@
     "image": "assets/projects/duo-albor.jpg"
   }
 ],
-  "contact": {
-    "email": "",
-    "location": {
-      "en": "",
-      "es": "",
-      "de": ""
-    },
-    "social": []
-  }
+"contact": {
+  "email": "cfdezparrondo@gmail.com",
+  "location": {
+    "en": "",
+    "es": "",
+    "de": ""
+  },
+  "social": [
+    { "label": "Instagram", "url": "https://www.instagram.com/cfpianist/" },
+    { "label": "Facebook", "url": "https://www.facebook.com/ClauFPianist" },
+    { "label": "YouTube", "url": "https://www.youtube.com/@CFPianist" }
+  ]
+}
 }
