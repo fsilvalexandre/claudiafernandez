@@ -1,45 +1,47 @@
-  /**
-   * main.js
-   * Mobile nav, smooth-scroll close, and rendering of dynamic
-   * content (bio, schedule, media, projects, contact) from content.json.
-   *
-   * Shared across ALL pages (index.html, bio.html, schedule.html,
-   * media.html, projects.html, contact.html). Every render function
-   * checks whether its target elements exist before doing anything,
-   * so a page only renders the sections it actually contains.
-   */
+/**
+ * main.js
+ * Mobile nav, smooth-scroll close, and rendering of dynamic
+ * content (bio, schedule, media, projects, contact) from content.json.
+ *
+ * Shared across ALL pages (index.html, bio.html, schedule.html,
+ * media.html, projects.html, contact.html). Every render function
+ * checks whether its target elements exist before doing anything,
+ * so a page only renders the sections it actually contains.
+ */
 
-  document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
-    const yearEl = document.getElementById("year");
-    if (yearEl) {
-      yearEl.textContent = new Date().getFullYear();
-    }
+  const yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 
-    // Navigation must be initialized independently
-    // from the content/i18n loading.
-    setupNav();
-    setupLangSwitch();
-    setupScrollProgress();
+  // Navigation must be initialized independently
+  // from the content/i18n loading.
+  setupNav();
+  setupLangSwitch();
+  setupScrollProgress();
+  setupLightbox();
+  setupHeaderScroll();
 
-    try {
-      await I18N.init();
+  try {
+    await I18N.init();
 
-      renderAll();
-      I18N.setLang(I18N.getLang());
+    renderAll();
+    I18N.setLang(I18N.getLang());
 
-      setupScrollReveal();
+    setupScrollReveal();
 
-      document.addEventListener("langchange", renderAll);
+    document.addEventListener("langchange", renderAll);
 
-    } catch (error) {
-      console.error("I18N initialization failed:", error);
-    }
-  });
+  } catch (error) {
+    console.error("I18N initialization failed:", error);
+  }
+});
 
-  /* ---------------------------------------------------------------------
-    Navigation (mobile menu)
-  --------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------
+  Navigation (mobile menu)
+--------------------------------------------------------------------- */
 function setupNav() {
   const toggle = document.getElementById("navToggle");
   const nav = document.getElementById("primaryNav");
@@ -93,214 +95,215 @@ function setupNav() {
   });
 }
 
-  function setupLangSwitch() {
-    document.querySelectorAll(".lang-switch__btn").forEach((btn) => {
-      btn.addEventListener("click", () => I18N.setLang(btn.getAttribute("data-lang")));
-    });
-  }
+function setupLangSwitch() {
+  document.querySelectorAll(".lang-switch__btn").forEach((btn) => {
+    btn.addEventListener("click", () => I18N.setLang(btn.getAttribute("data-lang")));
+  });
+}
 
-  /* ---------------------------------------------------------------------
-    Rendering — each function is a no-op if its elements aren't on the page
-  --------------------------------------------------------------------- */
-  function renderAll() {
-    renderProjectsDetailed("projectsDetailed", "projectsEmpty");
-    renderHero();
-    renderBioTeaser();
-    renderBio();
-    renderVenues();
-    renderSchedule();
-    renderMedia();
-    renderProjects("projectsGrid", "projectsEmpty");           // full projects page
-    renderProjects("projectsPreviewGrid", "projectsPreviewEmpty", 3); // homepage preview
-    renderContact();
-    renderFloatingConcert();
-    setupScheduleTabs();
-    scrollToHashTarget();
+/* ---------------------------------------------------------------------
+  Rendering — each function is a no-op if its elements aren't on the page
+--------------------------------------------------------------------- */
+function renderAll() {
+  renderProjectsDetailed("projectsDetailed", "projectsEmpty");
+  renderHero();
+  renderBioTeaser();
+  renderBio();
+  renderVenues();
+  renderSchedule();
+  renderMedia();
+  renderPhotos();
+  renderProjects("projectsGrid", "projectsEmpty");           // full projects page
+  renderProjects("projectsPreviewGrid", "projectsPreviewEmpty", 3); // homepage preview
+  renderContact();
+  renderFloatingConcert();
+  setupScheduleTabs();
+  scrollToHashTarget();
 
-  }
+}
 
-  function renderHero() {
-    const eyebrow = document.querySelector('[data-i18n="hero.eyebrow"]');
-    const tagline = document.querySelector('[data-i18n="hero.tagline"]');
-    if (eyebrow) eyebrow.textContent = I18N.c("hero.eyebrow");
-    if (tagline) tagline.textContent = I18N.c("hero.tagline");
+function renderHero() {
+  const eyebrow = document.querySelector('[data-i18n="hero.eyebrow"]');
+  const tagline = document.querySelector('[data-i18n="hero.tagline"]');
+  if (eyebrow) eyebrow.textContent = I18N.c("hero.eyebrow");
+  if (tagline) tagline.textContent = I18N.c("hero.tagline");
 
-    const img = document.getElementById("heroImage");
-    if (img) img.alt = I18N.c("hero.image.alt");
-  }
+  const img = document.getElementById("heroImage");
+  if (img) img.alt = I18N.c("hero.image.alt");
+}
 
-  function renderBioTeaser() {
-    const el = document.getElementById("bioTeaser");
-    if (!el) return;
-    el.textContent = I18N.c("bioTeaser") || "";
-  }
+function renderBioTeaser() {
+  const el = document.getElementById("bioTeaser");
+  if (!el) return;
+  el.textContent = I18N.c("bioTeaser") || "";
+}
 
-  function renderBio() {
-    const el = document.getElementById("bioText");
-    if (!el) return;
-    const text = I18N.c("bio") || "";
-    el.innerHTML = "";
-    text.split(/\n\n+/).forEach((para) => {
-      if (!para.trim()) return;
-      const p = document.createElement("p");
-      p.textContent = para.trim();
-      el.appendChild(p);
-    });
-  }
+function renderBio() {
+  const el = document.getElementById("bioText");
+  if (!el) return;
+  const text = I18N.c("bio") || "";
+  el.innerHTML = "";
+  text.split(/\n\n+/).forEach((para) => {
+    if (!para.trim()) return;
+    const p = document.createElement("p");
+    p.textContent = para.trim();
+    el.appendChild(p);
+  });
+}
 
-  function renderVenues() {
-    const list = document.getElementById("venuesList");
-    if (!list) return;
-    const venues = I18N.content?.venuesHighlight || [];
-    list.innerHTML = "";
-    venues.forEach((v) => {
-      const li = document.createElement("li");
-      li.textContent = v[I18N.getLang()] || v.en;
-      list.appendChild(li);
-    });
-  }
-
-  function renderSchedule() {
-    const upcomingList = document.getElementById("scheduleList");
-    const upcomingEmpty = document.getElementById("scheduleEmpty");
-    const pastList = document.getElementById("schedulePastList");
-    const pastEmpty = document.getElementById("schedulePastEmpty");
-    if (!upcomingList || !upcomingEmpty) return;
-
-    const items = I18N.content?.schedule || [];
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const upcoming = items
-      .filter((item) => item.date && new Date(item.date) >= today)
-      .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    const past = items
-      .filter((item) => item.date && new Date(item.date) < today)
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    upcomingList.innerHTML = "";
-    appendGroupedByYear(upcomingList, upcoming);
-    upcomingEmpty.hidden = upcoming.length > 0;
-    upcomingEmpty.dataset.hasContent = String(upcoming.length === 0);
-
-    if (pastList && pastEmpty) {
-      pastList.innerHTML = "";
-      appendGroupedByYear(pastList, past);
-      pastEmpty.hidden = past.length > 0;
-      pastEmpty.dataset.hasContent = String(past.length === 0);
-    }
-  }
-
-  function appendGroupedByYear(container, items) {
-    let currentYear = null;
-    items.forEach((item) => {
-      const year = new Date(item.date).getFullYear();
-      if (year !== currentYear) {
-        currentYear = year;
-        const yearHeader = document.createElement("li");
-        yearHeader.className = "schedule-year";
-        yearHeader.textContent = year;
-        container.appendChild(yearHeader);
-      }
-      container.appendChild(buildScheduleItem(item));
-    });
-  }
-
-  function buildScheduleItem(item) {
+function renderVenues() {
+  const list = document.getElementById("venuesList");
+  if (!list) return;
+  const venues = I18N.content?.venuesHighlight || [];
+  list.innerHTML = "";
+  venues.forEach((v) => {
     const li = document.createElement("li");
-    li.className = "schedule-item";
+    li.textContent = v[I18N.getLang()] || v.en;
+    list.appendChild(li);
+  });
+}
 
-    const { day, month } = formatDateParts(item.date, I18N.getLang());
+function renderSchedule() {
+  const upcomingList = document.getElementById("scheduleList");
+  const upcomingEmpty = document.getElementById("scheduleEmpty");
+  const pastList = document.getElementById("schedulePastList");
+  const pastEmpty = document.getElementById("schedulePastEmpty");
+  if (!upcomingList || !upcomingEmpty) return;
 
-    const dateBox = document.createElement("div");
-    dateBox.className = "schedule-item__datebox";
-    const dayEl = document.createElement("span");
-    dayEl.className = "schedule-item__day";
-    dayEl.textContent = day;
-    const monthEl = document.createElement("span");
-    monthEl.className = "schedule-item__month";
-    monthEl.textContent = month;
-    dateBox.appendChild(dayEl);
-    dateBox.appendChild(monthEl);
+  const items = I18N.content?.schedule || [];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-    const info = document.createElement("div");
-    info.className = "schedule-item__info";
+  const upcoming = items
+    .filter((item) => item.date && new Date(item.date) >= today)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    const title = document.createElement("p");
-    title.className = "schedule-item__title";
-    title.textContent = pickLang(item.title);
-    info.appendChild(title);
+  const past = items
+    .filter((item) => item.date && new Date(item.date) < today)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    const venueLine = [pickLang(item.venue), pickLang(item.city)].filter(Boolean).join(" — ");
-    if (venueLine) {
-      const venue = document.createElement("p");
-      venue.className = "schedule-item__venue";
-      venue.textContent = venueLine;
-      info.appendChild(venue);
+  upcomingList.innerHTML = "";
+  appendGroupedByYear(upcomingList, upcoming);
+  upcomingEmpty.hidden = upcoming.length > 0;
+  upcomingEmpty.dataset.hasContent = String(upcoming.length === 0);
+
+  if (pastList && pastEmpty) {
+    pastList.innerHTML = "";
+    appendGroupedByYear(pastList, past);
+    pastEmpty.hidden = past.length > 0;
+    pastEmpty.dataset.hasContent = String(past.length === 0);
+  }
+}
+
+function appendGroupedByYear(container, items) {
+  let currentYear = null;
+  items.forEach((item) => {
+    const year = new Date(item.date).getFullYear();
+    if (year !== currentYear) {
+      currentYear = year;
+      const yearHeader = document.createElement("li");
+      yearHeader.className = "schedule-year";
+      yearHeader.textContent = year;
+      container.appendChild(yearHeader);
     }
+    container.appendChild(buildScheduleItem(item));
+  });
+}
 
-    if (item.program) {
-      const program = document.createElement("p");
-      program.className = "schedule-item__program";
-      program.textContent = pickLang(item.program);
-      info.appendChild(program);
-    }
+function buildScheduleItem(item) {
+  const li = document.createElement("li");
+  li.className = "schedule-item";
 
-    li.appendChild(dateBox);
-    li.appendChild(info);
-    return li;
+  const { day, month } = formatDateParts(item.date, I18N.getLang());
+
+  const dateBox = document.createElement("div");
+  dateBox.className = "schedule-item__datebox";
+  const dayEl = document.createElement("span");
+  dayEl.className = "schedule-item__day";
+  dayEl.textContent = day;
+  const monthEl = document.createElement("span");
+  monthEl.className = "schedule-item__month";
+  monthEl.textContent = month;
+  dateBox.appendChild(dayEl);
+  dateBox.appendChild(monthEl);
+
+  const info = document.createElement("div");
+  info.className = "schedule-item__info";
+
+  const title = document.createElement("p");
+  title.className = "schedule-item__title";
+  title.textContent = pickLang(item.title);
+  info.appendChild(title);
+
+  const venueLine = [pickLang(item.venue), pickLang(item.city)].filter(Boolean).join(" — ");
+  if (venueLine) {
+    const venue = document.createElement("p");
+    venue.className = "schedule-item__venue";
+    venue.textContent = venueLine;
+    info.appendChild(venue);
   }
 
-  function setupScheduleTabs() {
-    const tabUpcoming = document.getElementById("tabUpcoming");
-    const tabPast = document.getElementById("tabPast");
-    const listUpcoming = document.getElementById("scheduleList");
-    const emptyUpcoming = document.getElementById("scheduleEmpty");
-    const listPast = document.getElementById("schedulePastList");
-    const emptyPast = document.getElementById("schedulePastEmpty");
-
-    if (
-      !tabUpcoming ||
-      !tabPast ||
-      !listUpcoming ||
-      !listPast ||
-      !emptyUpcoming ||
-      !emptyPast
-    ) {
-      return;
-    }
-
-    function showUpcoming() {
-      tabUpcoming.classList.add("is-active");
-      tabPast.classList.remove("is-active");
-
-      listUpcoming.hidden = false;
-      listPast.hidden = true;
-
-      emptyUpcoming.hidden = listUpcoming.children.length > 0;
-      emptyPast.hidden = true;
-    }
-
-    function showPast() {
-      tabPast.classList.add("is-active");
-      tabUpcoming.classList.remove("is-active");
-
-      listUpcoming.hidden = true;
-      listPast.hidden = false;
-
-      emptyUpcoming.hidden = true;
-      emptyPast.hidden = listPast.children.length > 0;
-    }
-
-    tabUpcoming.onclick = showUpcoming;
-    tabPast.onclick = showPast;
-
-    // Estado inicial
-    showUpcoming();
+  if (item.program) {
+    const program = document.createElement("p");
+    program.className = "schedule-item__program";
+    program.textContent = pickLang(item.program);
+    info.appendChild(program);
   }
 
-  function renderFloatingConcert() {
+  li.appendChild(dateBox);
+  li.appendChild(info);
+  return li;
+}
+
+function setupScheduleTabs() {
+  const tabUpcoming = document.getElementById("tabUpcoming");
+  const tabPast = document.getElementById("tabPast");
+  const listUpcoming = document.getElementById("scheduleList");
+  const emptyUpcoming = document.getElementById("scheduleEmpty");
+  const listPast = document.getElementById("schedulePastList");
+  const emptyPast = document.getElementById("schedulePastEmpty");
+
+  if (
+    !tabUpcoming ||
+    !tabPast ||
+    !listUpcoming ||
+    !listPast ||
+    !emptyUpcoming ||
+    !emptyPast
+  ) {
+    return;
+  }
+
+  function showUpcoming() {
+    tabUpcoming.classList.add("is-active");
+    tabPast.classList.remove("is-active");
+
+    listUpcoming.hidden = false;
+    listPast.hidden = true;
+
+    emptyUpcoming.hidden = listUpcoming.children.length > 0;
+    emptyPast.hidden = true;
+  }
+
+  function showPast() {
+    tabPast.classList.add("is-active");
+    tabUpcoming.classList.remove("is-active");
+
+    listUpcoming.hidden = true;
+    listPast.hidden = false;
+
+    emptyUpcoming.hidden = true;
+    emptyPast.hidden = listPast.children.length > 0;
+  }
+
+  tabUpcoming.onclick = showUpcoming;
+  tabPast.onclick = showPast;
+
+  // Estado inicial
+  showUpcoming();
+}
+
+function renderFloatingConcert() {
   const navigation = performance.getEntriesByType("navigation")[0];
 
   if (
@@ -314,150 +317,288 @@ function setupNav() {
     sessionStorage.removeItem("floatingConcertDismissed");
   }
 
-    const items = I18N.content?.schedule || [];
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+  const items = I18N.content?.schedule || [];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-    const upcoming = items
-      .filter((item) => item.date && new Date(item.date) >= today)
-      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  const upcoming = items
+    .filter((item) => item.date && new Date(item.date) >= today)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    if (upcoming.length === 0) return;
-    const next = upcoming[0];
+  if (upcoming.length === 0) return;
+  const next = upcoming[0];
 
-    const existing = document.getElementById("floatingConcert");
-    if (existing) existing.remove();
+  const existing = document.getElementById("floatingConcert");
+  if (existing) existing.remove();
 
-    const { day, month } = formatDateParts(next.date, I18N.getLang());
+  const { day, month } = formatDateParts(next.date, I18N.getLang());
 
-    const card = document.createElement("div");
-    card.className = "floating-concert";
-    card.id = "floatingConcert";
+  const card = document.createElement("div");
+  card.className = "floating-concert";
+  card.id = "floatingConcert";
 
-    const badge = document.createElement("div");
-    badge.className = "floating-concert__badge";
+  const badge = document.createElement("div");
+  badge.className = "floating-concert__badge";
 
-    const badgeMonth = document.createElement("span");
-    badgeMonth.className = "floating-concert__badge-month";
-    badgeMonth.textContent = month;
+  const badgeMonth = document.createElement("span");
+  badgeMonth.className = "floating-concert__badge-month";
+  badgeMonth.textContent = month;
 
-    const badgeDay = document.createElement("span");
-    badgeDay.className = "floating-concert__badge-day";
-    badgeDay.textContent = day;
+  const badgeDay = document.createElement("span");
+  badgeDay.className = "floating-concert__badge-day";
+  badgeDay.textContent = day;
 
-    badge.appendChild(badgeMonth);
-    badge.appendChild(badgeDay);
+  badge.appendChild(badgeMonth);
+  badge.appendChild(badgeDay);
 
-    const info = document.createElement("div");
-    info.className = "floating-concert__info";
+  const info = document.createElement("div");
+  info.className = "floating-concert__info";
 
-    const label = document.createElement("p");
-    label.className = "floating-concert__label";
-    label.textContent = I18N.t("nextConcertLabel");
+  const label = document.createElement("p");
+  label.className = "floating-concert__label";
+  label.textContent = I18N.t("nextConcertLabel");
 
-    const title = document.createElement("p");
-    title.className = "floating-concert__venue";
-    title.textContent = pickLang(next.title);
+  const title = document.createElement("p");
+  title.className = "floating-concert__venue";
+  title.textContent = pickLang(next.title);
 
-    const link = document.createElement("a");
-    link.className = "floating-concert__link";
-    link.href = "schedule.html";
-    link.textContent = I18N.t("viewSchedule");
+  const link = document.createElement("a");
+  link.className = "floating-concert__link";
+  link.href = "schedule.html";
+  link.textContent = I18N.t("viewSchedule");
 
-    info.appendChild(label);
-    info.appendChild(title);
-    info.appendChild(link);
+  info.appendChild(label);
+  info.appendChild(title);
+  info.appendChild(link);
 
-    const closeBtn = document.createElement("button");
-    closeBtn.className = "floating-concert__close";
-    closeBtn.setAttribute("aria-label", "Close");
-    closeBtn.textContent = "×";
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "floating-concert__close";
+  closeBtn.setAttribute("aria-label", "Close");
+  closeBtn.textContent = "×";
 
-    closeBtn.addEventListener("click", () => {
-      card.remove();
-      sessionStorage.setItem("floatingConcertDismissed", "1");
+  closeBtn.addEventListener("click", () => {
+    card.remove();
+    sessionStorage.setItem("floatingConcertDismissed", "1");
+  });
+
+  card.appendChild(badge);
+  card.appendChild(info);
+  card.appendChild(closeBtn);
+
+  document.body.appendChild(card);
+}
+
+function formatDateParts(dateStr, lang) {
+  const iso = dateStr.includes("T") ? dateStr : dateStr + "T00:00:00";
+  const date = new Date(iso);
+  const day = date.getDate();
+  const month = date.toLocaleDateString(lang, { month: "short" }).toUpperCase().replace(".", "");
+  return { day, month };
+}
+
+function extractYouTubeId(embedUrl) {
+  const match = /\/embed\/([^?&]+)/.exec(embedUrl || "");
+  return match ? match[1] : null;
+}
+
+function renderMedia() {
+  const player = document.getElementById("mediaPlayer");
+  const nowPlaying = document.getElementById("mediaNowPlaying");
+  const playlist = document.getElementById("mediaPlaylist");
+  const emptyState = document.getElementById("mediaEmpty");
+  if (!player || !nowPlaying || !playlist || !emptyState) return;
+
+  const items = I18N.content?.media || [];
+  playlist.innerHTML = "";
+
+  if (items.length === 0) {
+    emptyState.hidden = false;
+    player.innerHTML = "";
+    nowPlaying.innerHTML = "";
+    return;
+  }
+  emptyState.hidden = true;
+
+  showFeaturedMedia(items[0]);
+
+  items.forEach((item, index) => {
+    const id = extractYouTubeId(item.embedUrl);
+
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "media-playlist__item";
+    if (index === 0) card.classList.add("is-active");
+
+    if (id) {
+      const img = document.createElement("img");
+      img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+      img.loading = "lazy";
+      img.alt = "";
+      card.appendChild(img);
+    }
+
+    const scrim = document.createElement("span");
+    scrim.className = "media-playlist__scrim";
+    card.appendChild(scrim);
+
+    const title = document.createElement("span");
+    title.className = "media-playlist__title";
+    title.textContent = pickLang(item.title);
+    card.appendChild(title);
+
+    card.addEventListener("click", () => {
+      showFeaturedMedia(item);
+      playlist.querySelectorAll(".media-playlist__item").forEach((el) => el.classList.remove("is-active"));
+      card.classList.add("is-active");
     });
 
-    card.appendChild(badge);
-    card.appendChild(info);
-    card.appendChild(closeBtn);
+    playlist.appendChild(card);
+  });
+}
 
-    document.body.appendChild(card);
-  }
-  function formatDateParts(dateStr, lang) {
-    const iso = dateStr.includes("T") ? dateStr : dateStr + "T00:00:00";
-    const date = new Date(iso);
-    const day = date.getDate();
-    const month = date.toLocaleDateString(lang, { month: "short" }).toUpperCase().replace(".", "");
-    return { day, month };
-  }
+function showFeaturedMedia(item) {
+  const player = document.getElementById("mediaPlayer");
+  const nowPlaying = document.getElementById("mediaNowPlaying");
+  if (!player || !nowPlaying) return;
 
-  function renderMedia() {
-    const grid = document.getElementById("mediaGrid");
-    const emptyState = document.getElementById("mediaEmpty");
-    if (!grid || !emptyState) return;
-    const items = I18N.content?.media || [];
-    grid.innerHTML = "";
+  player.innerHTML = "";
+  nowPlaying.innerHTML = "";
+  if (!item) return;
 
-    if (items.length === 0) {
-      emptyState.hidden = false;
-      return;
-    }
-    emptyState.hidden = true;
-
-    items.forEach((item) => {
-      const card = document.createElement("article");
-      card.className = "media-card";
-
-      if (item.embedUrl) {
-        const frame = document.createElement("div");
-        frame.className = "media-card__frame";
-        const iframe = document.createElement("iframe");
-        iframe.src = item.embedUrl;
-        iframe.loading = "lazy";
-        iframe.title = pickLang(item.title);
-        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        iframe.allowFullscreen = true;
-        frame.appendChild(iframe);
-        card.appendChild(frame);
-      }
-
-      const body = document.createElement("div");
-      body.className = "media-card__body";
-      const title = document.createElement("h3");
-      title.className = "media-card__title";
-      title.textContent = pickLang(item.title);
-      const meta = document.createElement("p");
-      meta.className = "media-card__meta";
-      meta.textContent = pickLang(item.meta);
-      body.appendChild(title);
-      if (item.meta) body.appendChild(meta);
-      card.appendChild(body);
-
-      grid.appendChild(card);
-    });
+  if (item.embedUrl) {
+    const iframe = document.createElement("iframe");
+    iframe.src = item.embedUrl;
+    iframe.loading = "lazy";
+    iframe.title = pickLang(item.title);
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+    player.appendChild(iframe);
   }
 
-  /**
-   * Renders the projects grid into the given container IDs.
-   * @param {string} gridId - id of the grid element
-   * @param {string} emptyId - id of the empty-state element
-   * @param {number} [limit] - optional max number of items (used for homepage preview)
-   */
-  function renderProjects(gridId, emptyId, limit) {
-    const grid = document.getElementById(gridId);
-    const emptyState = document.getElementById(emptyId);
-    if (!grid || !emptyState) return;
+  const title = document.createElement("p");
+  title.className = "media-nowplaying__title";
+  title.textContent = pickLang(item.title);
+  nowPlaying.appendChild(title);
+}
 
-    let items = I18N.content?.projects || [];
-    if (limit) items = items.slice(0, limit);
-    grid.innerHTML = "";
+function renderPhotos() {
+  const grid = document.getElementById("galleryGrid");
+  const emptyState = document.getElementById("galleryEmpty");
+  if (!grid || !emptyState) return;
 
-    if (items.length === 0) {
-      emptyState.hidden = false;
-      return;
-    }
-    emptyState.hidden = true;
+  const items = I18N.content?.photos || [];
+  grid.innerHTML = "";
+
+  if (items.length === 0) {
+    emptyState.hidden = false;
+    return;
+  }
+  emptyState.hidden = true;
+
+  items.forEach((item, index) => {
+    const fig = document.createElement("figure");
+    fig.className = "photo-grid__item";
+    if (item.tall) fig.classList.add("photo-grid__item--tall");
+
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.loading = "lazy";
+    img.alt = pickLang(item.alt) || "";
+    fig.appendChild(img);
+
+fig.addEventListener("click", () => openLightbox(items, index));
+fig.style.cursor = "zoom-in";
+
+    grid.appendChild(fig);
+  });
+}
+
+let lightboxItems = [];
+let lightboxIndex = 0;
+
+function openLightbox(items, index) {
+  lightboxItems = items;
+  lightboxIndex = index;
+  showLightboxImage();
+
+  const lightbox = document.getElementById("lightbox");
+  if (!lightbox) return;
+  lightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
+}
+
+function showLightboxImage() {
+  const img = document.getElementById("lightboxImage");
+  if (!img || !lightboxItems.length) return;
+  const item = lightboxItems[lightboxIndex];
+  img.src = item.src;
+  img.alt = pickLang(item.alt) || "";
+}
+
+function showLightboxPrev() {
+  if (!lightboxItems.length) return;
+  lightboxIndex = (lightboxIndex - 1 + lightboxItems.length) % lightboxItems.length;
+  showLightboxImage();
+}
+
+function showLightboxNext() {
+  if (!lightboxItems.length) return;
+  lightboxIndex = (lightboxIndex + 1) % lightboxItems.length;
+  showLightboxImage();
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById("lightbox");
+  const img = document.getElementById("lightboxImage");
+  if (!lightbox) return;
+  lightbox.hidden = true;
+  if (img) img.src = "";
+  document.body.classList.remove("lightbox-open");
+}
+
+function setupLightbox() {
+  const lightbox = document.getElementById("lightbox");
+  const closeBtn = document.getElementById("lightboxClose");
+  const prevBtn = document.getElementById("lightboxPrev");
+  const nextBtn = document.getElementById("lightboxNext");
+  if (!lightbox || !closeBtn || !prevBtn || !nextBtn) return;
+
+  closeBtn.addEventListener("click", closeLightbox);
+  prevBtn.addEventListener("click", showLightboxPrev);
+  nextBtn.addEventListener("click", showLightboxNext);
+
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (lightbox.hidden) return;
+    if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowLeft") showLightboxPrev();
+    if (event.key === "ArrowRight") showLightboxNext();
+  });
+}
+
+/**
+ * Renders the projects grid into the given container IDs.
+ * @param {string} gridId - id of the grid element
+ * @param {string} emptyId - id of the empty-state element
+ * @param {number} [limit] - optional max number of items (used for homepage preview)
+ */
+function renderProjects(gridId, emptyId, limit) {
+  const grid = document.getElementById(gridId);
+  const emptyState = document.getElementById(emptyId);
+  if (!grid || !emptyState) return;
+
+  let items = I18N.content?.projects || [];
+  if (limit) items = items.slice(0, limit);
+  grid.innerHTML = "";
+
+  if (items.length === 0) {
+    emptyState.hidden = false;
+    return;
+  }
+  emptyState.hidden = true;
 
   items.forEach((item) => {
     const card = document.createElement("a");
@@ -488,90 +629,90 @@ function setupNav() {
     card.appendChild(media);
 
     const caption = document.createElement("div");
-  caption.className = "project-card__caption";
+    caption.className = "project-card__caption";
 
-  if (item.instrumentation) {
-    const eyebrow = document.createElement("p");
-    eyebrow.className = "project-card__eyebrow";
-    eyebrow.textContent = pickLang(item.instrumentation);
-    caption.appendChild(eyebrow);
-  }
+    if (item.instrumentation) {
+      const eyebrow = document.createElement("p");
+      eyebrow.className = "project-card__eyebrow";
+      eyebrow.textContent = pickLang(item.instrumentation);
+      caption.appendChild(eyebrow);
+    }
 
-  if (item.collaborator) {
-    const meta = document.createElement("p");
-    meta.className = "project-card__meta";
-    meta.textContent = pickLang(item.collaborator);
-    caption.appendChild(meta);
-  }
+    if (item.collaborator) {
+      const meta = document.createElement("p");
+      meta.className = "project-card__meta";
+      meta.textContent = pickLang(item.collaborator);
+      caption.appendChild(meta);
+    }
 
     card.appendChild(caption);
     grid.appendChild(card);
   });
+}
+
+function renderProjectsDetailed(containerId, emptyId) {
+  const container = document.getElementById(containerId);
+  const emptyState = document.getElementById(emptyId);
+  if (!container || !emptyState) return;
+
+  const items = I18N.content?.projects || [];
+  container.innerHTML = "";
+
+  if (items.length === 0) {
+    emptyState.hidden = false;
+    return;
   }
+  emptyState.hidden = true;
 
-  function renderProjectsDetailed(containerId, emptyId) {
-    const container = document.getElementById(containerId);
-    const emptyState = document.getElementById(emptyId);
-    if (!container || !emptyState) return;
-
-    const items = I18N.content?.projects || [];
-    container.innerHTML = "";
-
-    if (items.length === 0) {
-      emptyState.hidden = false;
-      return;
-    }
-    emptyState.hidden = true;
-
-      items.forEach((item) => {
+  items.forEach((item) => {
     const block = document.createElement("article");
     block.className = "project-block";
     block.id = slugify(item.title?.en || pickLang(item.title))
 
-      const title = document.createElement("h3");
-      title.className = "project-block__title";
-      title.textContent = pickLang(item.title);
-      block.appendChild(title);
+    const title = document.createElement("h3");
+    title.className = "project-block__title";
+    title.textContent = pickLang(item.title);
+    block.appendChild(title);
 
-      if (item.image) {
-        const img = document.createElement("img");
-        img.className = "project-block__image";
-        img.src = item.image;
-        img.alt = "";
-        img.loading = "lazy";
-        block.appendChild(img);
-      }
+    if (item.image) {
+      const img = document.createElement("img");
+      img.className = "project-block__image";
+      img.src = item.image;
+      img.alt = "";
+      img.loading = "lazy";
+      block.appendChild(img);
+    }
 
-      const textWrap = document.createElement("div");
-      textWrap.className = "project-block__text-wrap";
+    const textWrap = document.createElement("div");
+    textWrap.className = "project-block__text-wrap";
 
-      if (item.description) {
-        const p = document.createElement("p");
-        p.className = "project-block__text";
-        p.textContent = pickLang(item.description);
-        textWrap.appendChild(p);
-      }
+    if (item.description) {
+      const p = document.createElement("p");
+      p.className = "project-block__text";
+      p.textContent = pickLang(item.description);
+      textWrap.appendChild(p);
+    }
 
-      if (item.link && item.link.url) {
-        const a = document.createElement("a");
-        a.className = "text-link";
-        a.href = item.link.url;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        const span = document.createElement("span");
-        span.textContent = pickLang(item.link.label) || "Learn more";
-        const line = document.createElement("span");
-        line.className = "text-link__line";
-        line.setAttribute("aria-hidden", "true");
-        a.appendChild(span);
-        a.appendChild(line);
-        textWrap.appendChild(a);
-      }
+    if (item.link && item.link.url) {
+      const a = document.createElement("a");
+      a.className = "text-link";
+      a.href = item.link.url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      const span = document.createElement("span");
+      span.textContent = pickLang(item.link.label) || "Learn more";
+      const line = document.createElement("span");
+      line.className = "text-link__line";
+      line.setAttribute("aria-hidden", "true");
+      a.appendChild(span);
+      a.appendChild(line);
+      textWrap.appendChild(a);
+    }
 
-      block.appendChild(textWrap);
-      container.appendChild(block);
-    });
-  }
+    block.appendChild(textWrap);
+    container.appendChild(block);
+  });
+}
 
 function renderContact() {
   const el = document.getElementById("contactDetails");
@@ -724,74 +865,90 @@ function renderContact() {
 }
 
 
-  /* ---------------------------------------------------------------------
-    Helpers
-  --------------------------------------------------------------------- */
-  function pickLang(field) {
-    if (!field) return "";
-    if (typeof field === "string") return field;
-    return field[I18N.getLang()] || field.en || "";
+/* ---------------------------------------------------------------------
+  Helpers
+--------------------------------------------------------------------- */
+function pickLang(field) {
+  if (!field) return "";
+  if (typeof field === "string") return field;
+  return field[I18N.getLang()] || field.en || "";
+}
+
+function slugify(text) {
+  return (text || "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function setupScrollProgress() {
+  const bar = document.getElementById("scrollProgress");
+  if (!bar) return;
+
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = percent + "%";
   }
 
-  function slugify(text) {
-    return (text || "")
-      .toString()
-      .toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
-  }
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  updateProgress();
+}
 
-  function setupScrollProgress() {
-    const bar = document.getElementById("scrollProgress");
-    if (!bar) return;
+function setupHeaderScroll() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
 
-    function updateProgress() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      bar.style.width = percent + "%";
+  function updateHeaderState() {
+    if (window.scrollY > 20) {
+      header.classList.add("is-scrolled");
+    } else {
+      header.classList.remove("is-scrolled");
     }
-
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    updateProgress();
   }
 
-  function setupScrollReveal() {
-    const selectors = [
-      ".bio-teaser__text",
-      ".section--bio-teaser .text-link",
-      ".project-card",
-      ".project-block",
-      ".media-card",
-      ".schedule-item",
-      ".bio__text > p",
-      ".venues",
-      ".contact__details",
-    ];
-    const targets = document.querySelectorAll(selectors.join(","));
-    if (!targets.length) return;
+  window.addEventListener("scroll", updateHeaderState, { passive: true });
+  updateHeaderState();
+}
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+function setupScrollReveal() {
+  const selectors = [
+    ".bio-teaser__text",
+    ".section--bio-teaser .text-link",
+    ".project-card",
+    ".project-block",
+    ".media-playlist__item",
+    ".schedule-item",
+    ".bio__text > p",
+    ".venues",
+    ".contact__details",
+  ];
+  const targets = document.querySelectorAll(selectors.join(","));
+  if (!targets.length) return;
 
-    targets.forEach((el, i) => {
-      el.classList.add("reveal");
-      el.style.transitionDelay = `${Math.min(i % 6, 5) * 0.06}s`;
-      observer.observe(el);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
     });
-  }
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
 
-  function scrollToHashTarget() {
-    if (!window.location.hash) return;
-    const el = document.getElementById(window.location.hash.slice(1));
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  targets.forEach((el, i) => {
+    el.classList.add("reveal");
+    el.style.transitionDelay = `${Math.min(i % 6, 5) * 0.06}s`;
+    observer.observe(el);
+  });
+}
+
+function scrollToHashTarget() {
+  if (!window.location.hash) return;
+  const el = document.getElementById(window.location.hash.slice(1));
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+}

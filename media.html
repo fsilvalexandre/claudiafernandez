@@ -54,8 +54,10 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=Allura&display=swap" rel="stylesheet">
-
+<link
+  href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap"
+  rel="stylesheet"
+>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body id="top">
@@ -145,14 +147,49 @@
 
 <main id="main">
 
-  <section class="section section--media" id="media">
-    <div class="section__inner">
-      <h1 class="section__title"><span class="section__title-rule" aria-hidden="true"></span><span data-i18n="sections.media">Media</span></h1>
-      <div class="media-grid" id="mediaGrid"></div>
-      <p class="empty-state" id="mediaEmpty" data-i18n="mediaEmpty" hidden>Recordings will be added soon.</p>
-    </div>
-  </section>
+  <section class="page-hero page-hero--media" aria-label="Media">
+  <div class="page-hero__media">
+    <img
+      class="page-hero__image"
+      src="assets/media-hero.jpg"
+      alt=""
+      fetchpriority="high"
+    >
+    <div class="page-hero__scrim" aria-hidden="true"></div>
+  </div>
+  <div class="page-hero__content">
+    <h1 class="page-hero__title" data-i18n="sections.media">Media</h1>
+  </div>
+</section>
 
+<section class="section section--media" id="media">
+  <div class="section__inner">
+
+    <div class="media-player" id="mediaPlayer"></div>
+    <div class="media-nowplaying" id="mediaNowPlaying"></div>
+
+    <p class="media-label">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v14M16 5v14"/></svg>
+      <span data-i18n="mediaPlaylistLabel">Playlist</span>
+    </p>
+    <div class="media-playlist" id="mediaPlaylist"></div>
+    <p class="empty-state" id="mediaEmpty" data-i18n="mediaEmpty" hidden>Recordings will be added soon.</p>
+
+    <p class="media-label">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-2.5h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg>
+      <span data-i18n="sections.gallery">Gallery</span>
+    </p>
+    <div class="photo-grid" id="galleryGrid"></div>
+    <p class="empty-state" id="galleryEmpty" data-i18n="galleryEmpty" hidden>Photos coming soon.</p>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close">×</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous photo">‹</button>
+  <img class="lightbox__image" id="lightboxImage" src="" alt="">
+  <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next photo">›</button>
+</div>
 </main>
 
 <footer class="site-footer">

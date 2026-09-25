@@ -46,7 +46,59 @@
     { "en": "Rathauslaube, Schaffhausen (CH)", "es": "Rathauslaube, Schaffhausen (Suiza)", "de": "Rathauslaube, Schaffhausen (Schweiz)" },
     { "en": "Schloss Wildon (Austria)", "es": "Schloss Wildon (Austria)", "de": "Schloss Wildon (Österreich)" }
   ],
-  "media": [],
+"media": [
+  {
+    "embedUrl": "https://www.youtube.com/embed/s9yapFWHNtE",
+    "title": { "en": "Beethoven — Sonata no. 30 op. 109 in E Major: I. Vivace, ma non troppo", "es": "Beethoven — Sonata no. 30 op. 109 en Mi mayor: I. Vivace, ma non troppo", "de": "Beethoven — Sonate Nr. 30 op. 109 in E-Dur: I. Vivace, ma non troppo" },
+    "meta": { "en": "", "es": "", "de": "" }
+  },
+  {
+    "embedUrl": "https://www.youtube.com/embed/7R-KbwQW3G4",
+    "title": { "en": "Szymanowski — Preludes op. 1 (selection)", "es": "Szymanowski — Preludios op. 1 (selección)", "de": "Szymanowski — Préludes op. 1 (Auswahl)" },
+    "meta": { "en": "", "es": "", "de": "" }
+  },
+  {
+    "embedUrl": "https://www.youtube.com/embed/oiXR4e0fY-E",
+    "title": { "en": "Haydn — 6 Original Canzonettas, Volume II", "es": "Haydn — 6 Original Canzonettas, Volumen II", "de": "Haydn — 6 Original Canzonettas, Band II" },
+    "meta": { "en": "", "es": "", "de": "" }
+  },
+  {
+    "embedUrl": "https://www.youtube.com/embed/ZL3uZB7_XOw",
+    "title": { "en": "W. A. Mozart — Der Zauberer", "es": "W. A. Mozart — Der Zauberer", "de": "W. A. Mozart — Der Zauberer" },
+    "meta": { "en": "", "es": "", "de": "" }
+  },
+  {
+    "embedUrl": "https://www.youtube.com/embed/K2MBxwn_gqs",
+    "title": { "en": "Dora Pejačević — Élégie in E-flat major op. 34 (1913)", "es": "Dora Pejačević — Élégie en mi bemol mayor op. 34 (1913)", "de": "Dora Pejačević — Élégie in Es-Dur op. 34 (1913)" },
+    "meta": { "en": "", "es": "", "de": "" }
+  },
+  {
+    "embedUrl": "https://www.youtube.com/embed/yh51MlIf3j8",
+    "title": { "en": "Lili Boulanger — D'un matin de printemps (1918)", "es": "Lili Boulanger — D'un matin de printemps (1918)", "de": "Lili Boulanger — D'un matin de printemps (1918)" },
+    "meta": { "en": "", "es": "", "de": "" }
+  },
+  {
+    "embedUrl": "https://www.youtube.com/embed/SLQsRyGcNgE",
+    "title": { "en": "J. S. Bach — Sonata for Violin and Harpsichord no. 4 BWV 1017 in C minor", "es": "J. S. Bach — Sonata para violín y clave n.º 4 BWV 1017 en do menor", "de": "J. S. Bach — Sonate für Violine und Cembalo Nr. 4 BWV 1017 in c-Moll" },
+    "meta": { "en": "", "es": "", "de": "" }
+  },
+  {
+    "embedUrl": "https://www.youtube.com/embed/6vsywiwMvLc",
+    "title": { "en": "F. Schubert — Sonata for Violin and Piano in A Major D 574: IV. Allegro vivace", "es": "F. Schubert — Sonata para violín y piano en La mayor D 574: IV. Allegro vivace", "de": "F. Schubert — Sonate für Violine und Klavier in A-Dur D 574: IV. Allegro vivace" },
+    "meta": { "en": "", "es": "", "de": "" }
+  },
+  {
+    "embedUrl": "https://www.youtube.com/embed/loUv0b41K1Y",
+    "title": { "en": "El Paño Moruno — 7 Canciones Populares Españolas, Manuel de Falla", "es": "El Paño Moruno — 7 Canciones Populares Españolas, Manuel de Falla", "de": "El Paño Moruno — 7 Canciones Populares Españolas, Manuel de Falla" },
+    "meta": { "en": "", "es": "", "de": "" }
+  }
+],
+"photos": [
+  { "src": "assets/media/photo-1.jpg", "alt": { "en": "", "es": "", "de": "" } },
+  { "src": "assets/media/photo-2.jpg", "alt": { "en": "", "es": "", "de": "" }, "tall": true },
+  { "src": "assets/media/photo-3.jpg", "alt": { "en": "", "es": "", "de": "" } },
+  { "src": "assets/media/photo-4.jpg", "alt": { "en": "", "es": "", "de": "" } }
+],
 "projects": [
   {
     "title": {
@@ -102,7 +154,7 @@
       "de": "Gegründet von Siddhii Lagrutta (Sopran) und Claudia Fernández Parrondo (Klavier), erkundet das Duo Albor das Repertoire des Lied-Duos und spannt dabei einen weiten stilistischen Bogen von Haydn und Mozart bis hin zu den Nationalismen des 20. Jahrhunderts. Ihre Programme, die um ein thematisches Leitmotiv konzipiert sind, laden das Publikum dazu ein, durch eine sorgfältige und interessante Werkauswahl in die musikalische Ästhetik jedes Programms einzutauchen.\n\nIhr jüngstes Projekt, The Human Voice, präsentiert eine Adaption des berühmten Werks von Francis Poulenc, bei der ihr interdisziplinärer Ansatz ein besonders intensives szenisches Erlebnis schafft. In diesem Format präsentiert Duo Albor das Werk aus einer neuen Perspektive und regt zur Reflexion über die Gesellschaft und die neuen Technologien an."
     },
     "link": {
-      "url": "https://example.com/project-two",
+      "url": "https://duoalbor.com",
       "label": {
         "en": "Learn more",
         "es": "Saber más",
