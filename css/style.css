@@ -583,6 +583,56 @@ transition:
     visibility 0s linear 0s;
 }
 
+/* Mobile — Languages */
+.lang-switch {
+  display: none;
+}
+
+.primary-nav.is-open ~ .lang-switch {
+  position: fixed;
+  top: calc(var(--header-height) + 2.2rem);
+  left: 0;
+  right: 0;
+  z-index: 105;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: auto;
+  margin: 0;
+  padding: 0;
+
+  gap: 0.8rem;
+  border: 0;
+}
+
+.lang-switch__btn {
+  padding: 0.2rem;
+  background: none;
+  border: 0;
+
+  color: rgba(244, 237, 225, 0.55);
+
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.lang-switch__btn.is-active,
+.lang-switch__btn:hover,
+.lang-switch__btn:focus-visible {
+  color: var(--color-amber);
+}
+
+.lang-switch__separator {
+  color: rgba(244, 237, 225, 0.25);
+  font-size: 0.65rem;
+}
 
 /* Links */
 .primary-nav__list {
@@ -803,7 +853,7 @@ transition:
   height: 100%;
 
   object-fit: cover;
-  object-position: 75% 30%;
+  object-position: 30% 0%;
 }
 
 .hero__scrim {
@@ -812,9 +862,9 @@ transition:
 
   background: linear-gradient(
     to top,
-    rgba(28, 23, 18, 0.92) 0%,
-    rgba(28, 23, 18, 0.55) 32%,
-    rgba(28, 23, 18, 0.05) 60%
+    rgba(28, 23, 18, 0.6) 0%,
+    rgba(28, 23, 18, 0.35) 32%,
+    rgba(28, 23, 18, 0.02) 60%
   );
 }
 
@@ -1363,6 +1413,8 @@ transition:
   font-weight: 400;
   line-height: 1.35;
 
+  white-space: pre-line;
+
   transition: color 0.25s var(--ease);
 }
 
@@ -1441,16 +1493,30 @@ transition:
 
   border-top: 1px solid var(--color-line);
 }
-
-
 /* ==========================================================================
    MEDIA — PLAYER + PLAYLIST + GALLERY
    ========================================================================== */
+/* ==========================================================================
+   MEDIA — PLAYER + PLAYLIST + GALLERY
+   ========================================================================== */
+
+.media-frame {
+  border: 1px solid var(--color-amber-deep);
+  padding: 6px;
+  margin-bottom: 2rem;
+}
+
+.media-frame__inner {
+  border: 2px solid var(--color-amber-deep);
+  padding: 1.25rem;
+}
 
 .media-player {
   position: relative;
   aspect-ratio: 16 / 9;
   background: var(--color-ink);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .media-player iframe {
@@ -1461,56 +1527,74 @@ transition:
   border: 0;
 }
 
-.media-nowplaying {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding: 1rem 0 1.5rem;
-  border-bottom: 1px solid var(--color-line);
-  margin-bottom: 1.8rem;
-}
-
-.media-nowplaying__label {
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-amber);
-  font-weight: 600;
-  margin-bottom: 0.3rem;
-}
-
-.media-nowplaying__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+.media-player__poster {
+  position: absolute;
+  inset: 0;
   width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: none;
+}
+
+.media-player__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-player__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 23, 18, 0.2);
+  transition: background-color 0.25s var(--ease);
+}
+
+.media-player__poster:hover .media-player__scrim {
+  background: rgba(28, 23, 18, 0.35);
+}
+
+.media-player__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  transition: transform 0.25s var(--ease);
+}
+
+.media-player__poster:hover .media-player__play {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.media-nowplaying {
+  padding-top: 1rem;
 }
 
 .media-nowplaying__title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.6rem;
+
+  padding: 0.4rem 0.9rem;
+
+  background: var(--color-parchment-dim);
+  border: 1px solid rgba(184, 135, 79, 0.3);
+  border-radius: 999px;
+
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--color-ink);
 }
 
-.media-nowplaying__link {
+.media-nowplaying__title-rule {
   flex-shrink: 0;
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-ink);
-  border: 1px solid var(--color-ink);
-  padding: 0.5rem 0.9rem;
-  white-space: nowrap;
-  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
-}
-
-.media-nowplaying__link:hover {
-  background: var(--color-ink);
-  color: var(--color-white);
+  width: 1.1rem;
+  height: 1px;
+  background: var(--color-amber-deep);
 }
 
 .media-label {
@@ -1536,7 +1620,8 @@ transition:
   position: relative;
   aspect-ratio: 16 / 9;
   background: var(--color-line);
-  border: 2px solid transparent;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
   overflow: hidden;
   padding: 0;
   cursor: pointer;
@@ -2152,6 +2237,19 @@ transition:
   white-space: nowrap;
 }
 
+.floating-concert__program {
+  margin: 0 0 0.4rem;
+
+  color: var(--color-parchment-dim);
+
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.72rem;
+  line-height: 1.25;
+
+  white-space: pre-line;
+}
+
 .floating-concert__link {
   display: inline-block;
   align-self: flex-start;
@@ -2282,7 +2380,7 @@ transition:
   }
 
   .page-hero--schedule .page-hero__image {
-    object-position: 50% 5%;
+    object-position: 100% 40%;
   }
 
   /* ------------------------------------------------------------------------
@@ -2469,6 +2567,12 @@ transition:
 }
 
 
+@media (min-width: 701px) {
+  .page-hero--schedule .page-hero__image {
+    object-position: center 50%;
+  }
+}
+
 /* ==========================================================================
    RESPONSIVE — FLOATING CONCERT
    ========================================================================== */
@@ -2560,15 +2664,6 @@ transition:
   .floating-concert__link {
     font-size: 0.7rem;
   }
-}
-
-
-/* ==========================================================================
-   SCHEDULE — SPECIAL PAGE HERO
-   ========================================================================== */
-
-.page-hero--schedule .page-hero__image {
-  object-position: center 5%;
 }
 
 
@@ -2704,4 +2799,18 @@ body.lightbox-open {
 
 .page-hero--media .page-hero__image {
   object-position: center 30%;
+}
+
+.media-section {
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.media-section--playlist {
+  background: var(--color-parchment-dim);
+  padding: 1.5rem;
+}
+
+.media-section--gallery {
+  padding: 0;
 }

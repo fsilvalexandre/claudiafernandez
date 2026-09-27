@@ -349,27 +349,33 @@ function renderFloatingConcert() {
   badgeDay.textContent = day;
 
   badge.appendChild(badgeMonth);
-  badge.appendChild(badgeDay);
+badge.appendChild(badgeDay);
 
-  const info = document.createElement("div");
-  info.className = "floating-concert__info";
+const info = document.createElement("div");
+info.className = "floating-concert__info";
 
-  const label = document.createElement("p");
-  label.className = "floating-concert__label";
-  label.textContent = I18N.t("nextConcertLabel");
+const label = document.createElement("p");
+label.className = "floating-concert__label";
+label.textContent = I18N.t("nextConcertLabel");
 
-  const title = document.createElement("p");
-  title.className = "floating-concert__venue";
-  title.textContent = pickLang(next.title);
+const title = document.createElement("p");
+title.className = "floating-concert__venue";
+title.textContent = pickLang(next.title);
 
-  const link = document.createElement("a");
-  link.className = "floating-concert__link";
-  link.href = "schedule.html";
-  link.textContent = I18N.t("viewSchedule");
+const program = document.createElement("p");
+program.className = "floating-concert__program";
+program.textContent = pickLang(next.program);
 
-  info.appendChild(label);
-  info.appendChild(title);
-  info.appendChild(link);
+const link = document.createElement("a");
+link.className = "floating-concert__link";
+link.href = "/schedule";
+link.textContent = I18N.t("viewSchedule");
+
+info.appendChild(label);
+info.appendChild(title);
+if (next.program) info.appendChild(program);
+info.appendChild(link);
+
 
   const closeBtn = document.createElement("button");
   closeBtn.className = "floating-concert__close";
@@ -465,19 +471,64 @@ function showFeaturedMedia(item) {
   nowPlaying.innerHTML = "";
   if (!item) return;
 
-  if (item.embedUrl) {
-    const iframe = document.createElement("iframe");
-    iframe.src = item.embedUrl;
-    iframe.loading = "lazy";
-    iframe.title = pickLang(item.title);
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-    iframe.allowFullscreen = true;
-    player.appendChild(iframe);
+  const id = extractYouTubeId(item.embedUrl);
+
+  if (id) {
+    const poster = document.createElement("button");
+    poster.type = "button";
+    poster.className = "media-player__poster";
+    poster.setAttribute("aria-label", "Play video");
+
+    const img = document.createElement("img");
+img.src = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+img.loading = "lazy";
+img.alt = "";
+img.onerror = () => {
+  img.onerror = null;
+  img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+};
+poster.appendChild(img);
+
+    const scrim = document.createElement("span");
+    scrim.className = "media-player__scrim";
+    poster.appendChild(scrim);
+
+    const playIcon = document.createElement("span");
+    playIcon.className = "media-player__play";
+    playIcon.innerHTML = `
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+        <circle cx="12" cy="12" r="11" fill="#b8874f" />
+        <path d="M10 8.5v7l6-3.5-6-3.5z" fill="#fffdf9" />
+      </svg>
+    `;
+    poster.appendChild(playIcon);
+
+    poster.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `${item.embedUrl}?autoplay=1`;
+      iframe.loading = "lazy";
+      iframe.title = pickLang(item.title);
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      player.innerHTML = "";
+      player.appendChild(iframe);
+    });
+
+    player.appendChild(poster);
   }
 
   const title = document.createElement("p");
   title.className = "media-nowplaying__title";
-  title.textContent = pickLang(item.title);
+
+  const rule = document.createElement("span");
+  rule.className = "media-nowplaying__title-rule";
+  rule.setAttribute("aria-hidden", "true");
+  title.appendChild(rule);
+
+  const titleText = document.createElement("span");
+  titleText.textContent = pickLang(item.title);
+  title.appendChild(titleText);
+
   nowPlaying.appendChild(title);
 }
 
@@ -603,7 +654,7 @@ function renderProjects(gridId, emptyId, limit) {
   items.forEach((item) => {
     const card = document.createElement("a");
     card.className = "project-card";
-    card.href = `projects.html#${slugify(item.title?.en || pickLang(item.title))}`;
+    card.href = `/projects#${slugify(item.title?.en || pickLang(item.title))}`;
 
     const media = document.createElement("div");
     media.className = "project-card__media";

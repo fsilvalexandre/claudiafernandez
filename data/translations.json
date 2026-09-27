@@ -2,7 +2,7 @@
   "en": {
     "nav": {
       "home": "Home",
-      "bio": "Biography",
+      "bio": "About me",
       "schedule": "Schedule",
       "media": "Media",
       "projects": "Projects",
@@ -11,7 +11,7 @@
     "menuToggle": "Menu",
     "languageLabel": "Language",
     "sections": {
-      "bio": "Biography",
+      "bio": "About me",
       "schedule": "Schedule",
       "media": "Media",
       "photos": "Photos",
@@ -40,7 +40,7 @@
   "es": {
     "nav": {
       "home": "Inicio",
-      "bio": "Biografía",
+      "bio": "Sobre mí",
       "schedule": "Agenda",
       "media": "Media",
       "projects": "Proyectos",
@@ -50,7 +50,7 @@
     "languageLabel": "Idioma",
     "sections": {
       
-      "bio": "Biografía",
+      "bio": "Sobre mí",
       "schedule": "Agenda",
       "media": "Media",
       "photos": "Fotos",
@@ -79,7 +79,7 @@
   "de": {
     "nav": {
       "home": "Start",
-      "bio": "Biografie",
+      "bio": "Über mich",
       "schedule": "Termine",
       "media": "Media",
       "projects": "Projekte",
@@ -88,7 +88,7 @@
     "menuToggle": "Menü",
     "languageLabel": "Sprache",
     "sections": {
-      "bio": "Biografie",
+      "bio": "Über mich",
       "schedule": "Termine",
       "media": "Media",
       "photos": "Fotos",

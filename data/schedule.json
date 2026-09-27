@@ -24,16 +24,16 @@
       "date": "2026-11-06",
       "dateDisplay": { "es": "6 Nov 2026", "en": "6 Nov 2026", "de": "6. Nov. 2026" },
       "title": {
-        "es": "Duo Albor — con Siddhii Lagrutta",
-        "en": "Duo Albor — with Siddhii Lagrutta",
-        "de": "Duo Albor — mit Siddhii Lagrutta"
+        "es": "Duo Albor",
+        "en": "Duo Albor",
+        "de": "Duo Albor"
       },
       "venue": { "es": "Sustainability Basel", "en": "Sustainability Basel", "de": "Sustainability Basel" },
       "city": { "es": "", "en": "", "de": "" },
       "program": {
-        "es": "Lugar, hora y repertorio por anunciar",
-        "en": "Venue, time and programme to be announced",
-        "de": "Ort, Zeit und Programm werden noch bekannt gegeben"
+        "es": "Repertorio por anunciar",
+        "en": "Programme to be announced",
+        "de": "Programm werden noch bekannt gegeben"
       }
     },
     {
