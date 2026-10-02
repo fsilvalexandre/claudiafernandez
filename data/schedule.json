@@ -1,28 +1,109 @@
 {
   "schedule": [
 {
-  "date": "2024-03-01",
-  "dateDisplay": { "es": "01 Mar 2025 (hora por anunciar)", "en": "01 Mar 2025 (time TBA)", "de": "01 Mar 2025 (Uhrzeit folgt)" },
+  "date": "2025-08-09",
+  "dateDisplay": { "es": "09 Ago 2025, 20:30", "en": "09 Aug 2025, 20:30", "de": "09 Aug 2025, 20:30" },
   "title": {
-    "es": "“MusaE” — Ebenum Duo, con Arabela de Miguel Robledo",
-    "en": "“MusaE” — Ebenum Duo, with Arabela de Miguel Robledo",
-    "de": "„MusaE“ — Ebenum Duo, mit Arabela de Miguel Robledo"
+    "es": "Festival Soria Clásica",
+    "en": "Festival Soria Clásica",
+    "de": "Festival Soria Clásica"
   },
   "venue": { "es": "Museo Sorolla", "en": "Museo Sorolla", "de": "Museo Sorolla" },
   "city": {
-    "es": "Madrid",
-    "en": "Madrid",
-    "de": "Madrid"
+    "es": "Claustro IES Antonio Machado, Soria (España)",
+    "en": "Claustro IES Antonio Machado, Soria (Spain)",
+    "de": "Claustro IES Antonio Machado, Soria (Spanien)"
   },
   "program": {
-    "es": "Música de Debussy, Toldrá, Falla, Granados y Lili Boulanger",
-    "en": "Music by Debussy, Toldrá, Falla, Granados and Lili Boulanger",
-    "de": "Musik von Debussy, Toldrá, Falla, Granados und Lili Boulanger"
+    "es": "Música de Toldrá, L. Boulanger, Beethoven, Debussy, Falla y Pejačević",
+    "en": "Music by Toldrá, L. Boulanger, Beethoven, Debussy, Falla and Pejačević",
+    "de": "Musik von Toldrá, L. Boulanger, Beethoven, Debussy, Falla und Pejačević"
   }
 },
+
+{
+  "date": "2025-11-15",
+  "dateDisplay": { "es": "15 Nov 2025, 11:30", "en": "15 Nov 2025, 11:30", "de": "15 Nov 2025, 11:30" },
+  "title": {
+    "es": "West Wicklow Chamber Music Festival // Con Fiachra de hOra",
+    "en": "West Wicklow Chamber Music Festival // Con Fiachra de hOra" ,
+    "de": "West Wicklow Chamber Music Festival // Con Fiachra de hOra"
+  },
+  "venue": { "es": "Museo Sorolla", "en": "Museo Sorolla", "de": "Museo Sorolla" },
+  "city": {
+    "es": "The Manor House, Tulfarris (Irlanda)",
+    "en": "The Manor House, Tulfarris (Ireland)",
+    "de": "The Manor House, Tulfarris (Irland)"
+  },
+  "program": {
+    "es": "Música de Schumann y Clarke",
+    "en": "Music by Schumann and Clarke",
+    "de": "Musik von Schumann und Clarke"
+  }
+},
+
+{
+  "date": "2026-01-13",
+  "dateDisplay": { "es": "13 Jan 2026, 19:30", "en": "13 Jan 2026, 19:30", "de": "13 Jan 2026, 19:30" },
+  "title": {
+    "es": "Ebenum Duo",
+    "en": "Ebenum Duo",
+    "de": "Ebenum Duo"
+  },
+  "venue": { "es": "Museo Sorolla", "en": "Museo Sorolla", "de": "Museo Sorolla" },
+  "city": {
+    "es": "Reial Acadèmia Catalana de Belles Arts de Sant Jordi, Barcelona",
+    "en": "Reial Acadèmia Catalana de Belles Arts de Sant Jordi, Barcelona",
+    "de": "Reial Acadèmia Catalana de Belles Arts de Sant Jordi, Barcelona"
+  },
+  "program": {
+    "es": "Música de Beethoven y Brahms",
+    "en": "Music by Beethoven and Brahms",
+    "de": "Musik von Beethoven und Brahms"
+  }
+},
+
+{
+  "date": "2026-05-31",
+  "dateDisplay": { "es": "31 Maio 2026, 11:00", "en": "31 Maio 2026, 11:00", "de": "31 Maio 2026, 11:00" },
+  "title": {
+    "es": "Festival Arte Classica - Elisabeth Köstler & Kerstin Feltz",
+    "en": "Festival Arte Classica - Elisabeth Köstler & Kerstin Feltz",
+    "de": "Festival Arte Classica - Elisabeth Köstler & Kerstin Feltz"
+  },
+  "venue": { "es": "", "en": "", "de": "" },
+  "city": {
+    "es": "Schloss Wildon (Austria)",
+    "en": "Schloss Wildon (Austria)",
+    "de": "Schloss Wildon (Austria)"
+  },
+  "program": {
+    "es": "Música de Schumann, Amy Beach y Elgar",
+    "en": "Music by Schumann, Amy Beach and Elgar",
+    "de": "Musik von Schumann, Amy Beach und Elgar"
+  }
+},
+
     {
-      "date": "2026-11-06",
-      "dateDisplay": { "es": "6 Nov 2026", "en": "6 Nov 2026", "de": "6. Nov. 2026" },
+      "date": "2026-06-28",
+      "dateDisplay": { "es": "28 Junho 2026 ", "en": "28 June 2026", "de": "28 Juni 2026" },
+      "title": {
+        "es": "Duo Albor",
+        "en": "Duo Albor",
+        "de": "Duo Albor"
+      },
+      "venue": { "es": "Gare du Nord", "en": "Gare du Nord", "de": "Gare du Nord" },
+      "city": { "es": "Basel, Suiza", "en": "Basel, Switzerland", "de": "Basel, Schweiz" },
+      "program": {
+        "es": "The human voice",
+        "en": "The human voice",
+        "de": "The human voice"
+      }
+    },
+
+    {
+      "date": "tba",
+      "dateDisplay": { "es": "tba", "en": "tba", "de": "tba" },
       "title": {
         "es": "Duo Albor",
         "en": "Duo Albor",
@@ -68,6 +149,7 @@
         "de": "Musik von Beethoven, Debussy, Toldrà, Falla, Lili Boulanger und Dora Pejačević"
       }
     },
+
     {
       "date": "2026-12-26",
       "dateDisplay": { "es": "26 Dic 2026, 19:00h", "en": "26 Dec 2026, 7:00 PM", "de": "26. Dez. 2026, 19:00" },
